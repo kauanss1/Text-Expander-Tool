@@ -2,27 +2,7 @@ from pynput  import keyboard
 import time
 import pyperclip
 from variaveis import variaveis_manege
-
-
-
-GATILHOS = {
-    "\\help": "Olá! Sou o suporte técnico. Como posso te ajudar hoje?",
-    "\\ma": """Prezado(a),
-    Seu pedido foi enviado para aprovação do(a) 
- 
-    🔗 Acesse o Kinross Vault por aqui:
-    https://launcher.myapps.microsoft.com/api/signin/c41d7696-8371-41c3-98bf-58e45fef2d77?tenantId=296c0af8-f0e6-43a0-ac22-169ba3ad1a69
- 
-    Ressaltamos que há um prazo de replicação de até 1 hora para que a alteração seja efetivada, após a aprovação.
-    {silva}
-    {nome}
-    {cargo}
-    {hora}
-    {data}
-    Information Technology Department""",
-    "\\re": "Obrigado pelo contato! O seu chamado foi registrado com sucesso."
-}
-
+from gestor_de_arquivos import Gestor_de_arquivos
 
 
 class escutar:
@@ -30,6 +10,8 @@ class escutar:
         self.temp = ""
         self.digitar = keyboard.Controller()
         self.gerencia_variaveis = variaveis_manege()
+        self.gestor = Gestor_de_arquivos()
+        self.gatilhos_sistema = self.gestor.carregar_gatilhos()
 
     def tecla_ler( self, tecla):
         try:
@@ -48,8 +30,8 @@ class escutar:
                 self.temp = self.temp[:-1]
             elif tecla == keyboard.Key.space and self.temp.startswith("\\"):
 
-                if self.temp in GATILHOS:
-                    texto_sub= GATILHOS[self.temp]
+                if self.temp in self.gatilhos_sistema:
+                    texto_sub= self.gatilhos_sistema[self.temp]
 
                     qtd_char = len(self.temp)+1
 

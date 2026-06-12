@@ -5,7 +5,7 @@ class variaveis_manege:
     
         self.VARIAVEIS_PADRAO = {
             "nome": "Kauan Santos Silva",
-            "email": "kauan.silva@kinross.com",
+            "email": "kauansantossilva138@gmail.com",
             "contato": "+55 (38) 99999-9999",
             "data":"",
             "hora": ""
