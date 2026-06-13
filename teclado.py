@@ -5,7 +5,7 @@ from variaveis import variaveis_manege
 from gestor_de_arquivos import Gestor_de_arquivos
 
 
-class escutar:
+class teclado:
     def __init__(self):
         self.temp = ""
         self.digitar = keyboard.Controller()
@@ -36,6 +36,7 @@ class escutar:
                     qtd_char = len(self.temp)+1
 
                     self.apagar_gatilho(qtd_char , texto_sub)
+                    self.gatilhos_sistema = self.gestor.carregar_gatilhos()
 
 
                 self.temp = ""
