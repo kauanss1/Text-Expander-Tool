@@ -3,26 +3,35 @@ import webview
 from pynput  import keyboard
 from teclado import teclado
 from criador_pastas import Obj_criador_de_pasta
+from bandeja_sistema import bandeja
+from threading import Thread
 
 
+app_bandeja = None
+
+def fechar(icon, item):
+    print("fechando")
+    if bandeja:
+        bandeja.parar_icone()
+    os._exit
+        
+
+def start_teclado():
+    Obj_criador_de_pasta.configuracao()
+    print(" teclado ativado.")
+    escutarr = teclado()
+    ouvinte = keyboard.Listener(on_press=escutarr.tecla_ler)  
+    ouvinte.start()
         
 
 
 if __name__ == '__main__':
 
-    Obj_criador_de_pasta.configuracao()
-
-    escutarr = teclado()
-    
-    ouvinte = keyboard.Listener(escutarr.tecla_ler)
-
-    ouvinte.start()
-    
-    
+    segundo_plano = Thread(target=start_teclado, daemon=True)
+    segundo_plano.start()
 
 
-    ouvinte.join()
-    
+    app_bandeja = bandeja(encerrar=exit)
+    app_bandeja.criar_icon()
 
-
-    
+        

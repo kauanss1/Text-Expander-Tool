@@ -36,7 +36,6 @@ class teclado:
                     qtd_char = len(self.temp)+1
 
                     self.apagar_gatilho(qtd_char , texto_sub)
-                    self.gatilhos_sistema = self.gestor.carregar_gatilhos()
 
 
                 self.temp = ""
@@ -63,6 +62,8 @@ class teclado:
         self.digitar.release('v')
 
         self.digitar.release(keyboard.Key.ctrl)
+        
+        self.gatilhos_sistema = self.gestor.carregar_gatilhos()
         time.sleep(0.02)
         pyperclip.copy("")
         print("area de transferencia limpa ")
