@@ -11,8 +11,8 @@ app_bandeja = None
 
 def fechar(icon, item):
     print("fechando")
-    if bandeja:
-        bandeja.parar_icone()
+    if app_bandeja:
+        app_bandeja.parar_icone()
     os._exit
         
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     segundo_plano.start()
 
 
-    app_bandeja = bandeja(encerrar=exit)
+    app_bandeja = bandeja(encerrar=fechar)
     app_bandeja.criar_icon()
 
         

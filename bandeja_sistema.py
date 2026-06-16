@@ -29,4 +29,5 @@ class bandeja:
     def parar_icone(self):
         if self.icon:
             self.icon.stop()
+            os._exit(0)
 
