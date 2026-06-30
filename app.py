@@ -30,26 +30,27 @@ async def rodar_bandeja():
     global app_bandeja
     app_bandeja = bandeja(encerrar=fechar)
     await asyncio.get_event_loop().run_in_executor(None, app_bandeja.criar_icon)
-
-
-if __name__ == '__main__':
-
-    segundo_plano = Thread(target=start_teclado, daemon=True)
-    segundo_plano.start()
-    interface = webview.create_window(
-        title="Text Expander",
+def abrir_interface():
+        interface = webview.create_window(
+        title="Atalhos de Texto",
         url = "interface/index.html",
         width=700,
         height=500,
         resizable=True
         )
-    webview.start()
+        webview.start()
+
+if __name__ == '__main__':
+
+    segundo_plano = Thread(target=start_teclado, daemon=True)
+    segundo_plano.start()
+
 
     # thread_interface = Thread(target=start_interface, daemon=True)
     # thread_interface.start()
 
 
-    app_bandeja = bandeja(encerrar=fechar)
+    app_bandeja = bandeja(encerrar=fechar,abri= abrir_interface)
     app_bandeja.criar_icon()
 
     def iniciar_loop():
