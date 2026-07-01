@@ -6,10 +6,10 @@ from criador_pastas import Obj_criador_de_pasta
 from bandeja_sistema import bandeja
 from threading import Thread
 import asyncio
-
+from gestor_interface import gestorinterface
 
 app_bandeja = None
-
+controlador_inteface = gestorinterface()
 def fechar(icon, item):
     print("fechando")
     if app_bandeja:
@@ -28,17 +28,8 @@ def start_teclado():
 
 async def rodar_bandeja():
     global app_bandeja
-    app_bandeja = bandeja(encerrar=fechar)
+    app_bandeja = bandeja(encerrar=fechar, abri= controlador_inteface.abri)
     await asyncio.get_event_loop().run_in_executor(None, app_bandeja.criar_icon)
-def abrir_interface():
-        interface = webview.create_window(
-        title="Atalhos de Texto",
-        url = "interface/index.html",
-        width=700,
-        height=500,
-        resizable=True
-        )
-        webview.start()
 
 if __name__ == '__main__':
 
@@ -46,15 +37,14 @@ if __name__ == '__main__':
     segundo_plano.start()
 
 
-    # thread_interface = Thread(target=start_interface, daemon=True)
-    # thread_interface.start()
 
 
-    app_bandeja = bandeja(encerrar=fechar,abri= abrir_interface)
-    app_bandeja.criar_icon()
-
+    controlador_inteface.abrir_interface()
+    
     def iniciar_loop():
         asyncio.run(rodar_bandeja())
     webview.start(iniciar_loop)
+    
+
 
         

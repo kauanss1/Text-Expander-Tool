@@ -20,9 +20,9 @@ class bandeja:
         menu_bandeja = pystray.Menu(
             pystray.MenuItem('empansor de texto ', lambda: None, enabled=False),
             pystray.Menu.SEPARATOR,
+            pystray.MenuItem('ABRI', self.abri),
+            # pystray.Menu.SEPARATOR,
             pystray.MenuItem('SAIR', self.encerrar),
-            pystray.Menu.SEPARATOR,
-            pystray.MenuItem('teste', self.abri)
         )
 
         self.icon = pystray.Icon("TextExpander", imagem, "Text Expander Tool", menu_bandeja)
