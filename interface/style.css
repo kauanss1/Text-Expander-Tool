@@ -11,3 +11,8 @@
         h1 {
             color: #4ea8de;
         }
+        .grupo-input{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
