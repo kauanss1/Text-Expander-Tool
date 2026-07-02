@@ -17,8 +17,8 @@ class gestorinterface:
             self.interface = webview.create_window(
             title="Atalhos de Texto",
             url = "interface/index.html",
-            width=700,
-            height=500,
+            width=1300,
+            height=900,
             resizable=True,
             hidden=True
             )
