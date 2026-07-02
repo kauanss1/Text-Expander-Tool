@@ -8,13 +8,13 @@ function btn_abri() {
     menuPrincipal.style.display = 'none';
 
     
-    telaCadastro.style.display = 'block'; 
+    telaCadastro.style.display = 'flex'; 
 }
 
 function btn_fechar() {
     const menuPrincipal = document.getElementById('pagina_inicial');
     const telaCadastro = document.getElementById('cadastro_atalhos');
 
-    menuPrincipal.style.display = 'block'; 
+    menuPrincipal.style.display = 'flex'; 
     telaCadastro.style.display = 'none'; 
 }
