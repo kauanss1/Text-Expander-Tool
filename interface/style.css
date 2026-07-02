@@ -5,32 +5,53 @@
     box-sizing: border-box;
 }
 
+/* ==========================================
+   1. CONFIGURAÇÕES GERAIS E RESET
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     height: 100vh;
     background-color: #1a1d29;
 }
 
+/* ==========================================
+   2. JANELA FLUTUANTE (Modificado para sobreposição)
+   ========================================== */
 .novo-atalho {
+    /* Garante a flutuação por cima de tudo */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Joga a janela para a camada mais alta da tela */
+
+    /* Seus estilos visuais mantidos */
     width: 100%;
     max-width: 600px;
     padding: 30px;
     background-color: #1a1d29; 
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     border: 1px solid #282c3e;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
+    /* Sombra pesada para destacar que a janela está flutuando */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
+    /* Nota: Esse truque do segundo valor no box-shadow (0 0 0 100vw) cria o 
+       fundo escurecido ao redor da janela sem precisar de novas tags no HTML! */
 }
 
-
+/* ==========================================
+   3. FORMULÁRIO E INPUTS
+   ========================================== */
 .grupo-input {
     display: flex;
     flex-direction: column;
     gap: 16px; 
 }
-
 
 .grupo-input input[type="text"],
 .grupo-input textarea {
@@ -46,13 +67,11 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-
 .grupo-input textarea {
     height: 350px; 
     resize: none;   
     line-height: 1.6;
 }
-
 
 .grupo-input input[type="text"]:focus,
 .grupo-input textarea:focus {
@@ -60,13 +79,14 @@ body {
     box-shadow: 0 0 12px rgba(168, 85, 247, 0.4); 
 }
 
-
 .grupo-input ::placeholder {
     color: #64748b;
     opacity: 1;
 }
 
-
+/* ==========================================
+   4. GRUPO DE BOTÕES DA JANELA
+   ========================================== */
 .grupo-botoes {
     display: flex;
     justify-content: flex-end; 
@@ -89,12 +109,11 @@ body {
     z-index: 1;
 }
 
-
+/* --- Botão Salvar --- */
 .btn-salvar {
     color: #ffffff;
     background-color: transparent;
 }
-
 
 .btn-salvar::after {
     content: '';
@@ -107,7 +126,6 @@ body {
     border-radius: 8px;
     z-index: -2;
 }
-
 
 .btn-salvar::before {
     content: '';
@@ -126,12 +144,11 @@ body {
     width: 100%;
 }
 
-
+/* --- Botão Cancelar --- */
 .btn-cancelar {
     color: #ffffff;
     background-color: transparent;
 }
-
 
 .btn-cancelar::after {
     content: '';
@@ -144,7 +161,6 @@ body {
     border-radius: 8px;
     z-index: -2;
 }
-
 
 .btn-cancelar::before {
     content: '';
@@ -163,11 +179,9 @@ body {
     width: 100%;
 }
 
-
-
-
-
-
+/* ==========================================
+   5. LAYOUT DE FUNDO (Menu Principal Flexbox)
+   ========================================== */
 nav.main {
     display: flex;
     flex-direction: column;
@@ -175,13 +189,11 @@ nav.main {
     width: 100%;
 }
 
-
 nav.main header {
     background-color: #6a82e2;
     height: 7vh;
     width: 100%;
 }
-
 
 nav.main main {
     display: flex;
@@ -189,19 +201,15 @@ nav.main main {
     width: 100%;
 }
 
-
 .bloco-preto {
-    
     width: 20%;
     background-color: #15276d;
 }
-
 
 .bloco-laranja {
     background-color: #1a1d29;
     flex: 1;
 }
-
 
 nav.main footer {
     background-color: #26a65b;
@@ -211,7 +219,6 @@ nav.main footer {
     align-items: center;
     padding-left: 20px; 
 }
-
 
 .botoes {
     padding: 5px 15px;
