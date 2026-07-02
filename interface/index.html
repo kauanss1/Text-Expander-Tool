@@ -15,9 +15,12 @@
 
         <header></header>
         <main>
-            <button class="botoes" onclick=" aoClicarBotao()">novo atalho +</button>
+            <div class="bloco-preto"></div>
+        <div class="bloco-laranja"></div>
         </main>
-        <footer> </footer>
+        <footer>
+            <button class="botoes" onclick=" btn_abri()">novo atalho +</button>
+        </footer>
     </nav>
 
 
@@ -26,6 +29,10 @@
             <div class="grupo-input">
                 <input type="text" id="campo-gatilho" placeholder="EX:\help ">
                 <textarea name=" mensagem" rows=" 40" cols="100" placeholder=" texto do gatilho"></textarea>
+                <div class="grupo-botoes">
+                    <button type="button" class="btn-cancelar" onclick="btn_fechar()">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar</button>
+                </div>
             </div>
         </nav>
 
