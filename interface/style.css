@@ -5,15 +5,6 @@
     box-sizing: border-box;
 }
 
-/* ==========================================
-   1. CONFIGURAÇÕES GERAIS E RESET
-   ========================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     height: 100vh;
     background-color: #1a1d29;
@@ -203,11 +194,17 @@ nav.main main {
 
 .bloco-preto {
     width: 20%;
-    background-color: #15276d;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
 }
 
 .bloco-laranja {
-    background-color: #1a1d29;
+    background-color: #f5680b;
     flex: 1;
 }
 
@@ -223,4 +220,24 @@ nav.main footer {
 .botoes {
     padding: 5px 15px;
     cursor: pointer;
+}
+
+
+
+
+
+/* ===================================== */
+/* layout individual de cada atalho  */
+.item-atalho { 
+    background-color: #2d2d2d;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #a855f7; 
+    color: #ffffff;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between; 
+}
+.item-atalho strong {
+    color: #4ea8de; /* O gatilho ganha destaque em azul */
 }
