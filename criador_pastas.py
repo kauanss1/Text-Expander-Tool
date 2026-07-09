@@ -74,5 +74,3 @@ class criador_pastas:
 
     def caminhogatilhos(self):
         return self.caminho_gatilhos
-
-Obj_criador_de_pasta = criador_pastas()
