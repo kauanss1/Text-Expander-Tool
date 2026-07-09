@@ -8,6 +8,7 @@
 body {
     height: 100vh;
     background-color: #1a1d29;
+    overflow: hidden;
 }
 
 /* ==========================================
@@ -196,16 +197,20 @@ nav.main main {
     width: 20%;
     background-color: #ffffff;
     padding: 25px;
-    border-radius: 8px;
+    
     display: flex;
     flex-direction: column;
+    height: 86vh;
+    
     gap: 10px;
     overflow-y: auto;
+   
 }
 
 .bloco-laranja {
     background-color: #f5680b;
     flex: 1;
+    height: 86vh;
 }
 
 nav.main footer {
