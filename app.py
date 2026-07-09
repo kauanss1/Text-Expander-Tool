@@ -5,10 +5,10 @@ from teclado import teclado
 from criador_pastas import criador_pastas
 from bandeja_sistema import bandeja
 from threading import Thread
-import asyncio
 from gestor_interface import gestorinterface
 from gestor_de_arquivos import Gestor_de_arquivos
 from variaveis import variaveis_manege
+from InterfaceAPI import InterfaceAPI
 
 
 
@@ -28,37 +28,42 @@ def start_teclado():
 
 
 
-async def rodar_bandeja():
+def start_bandeja():
     global app_bandeja
-    app_bandeja = bandeja(encerrar=fechar, abri= controlador_inteface.abri)
-    await asyncio.get_event_loop().run_in_executor(None, app_bandeja.criar_icon)
+    app_bandeja = bandeja(encerrar=fechar, abri=controlador_inteface.abri)
+    app_bandeja.criar_icon()
+
 
 if __name__ == '__main__':
 
     # criacao de todos os obijetos 
+
     criador_pastasglb = criador_pastas()
     Gestor_de_arquivos_glb = Gestor_de_arquivos(criador_pastasglb)
     gerencia_variaveisglb = variaveis_manege(criador_pastasglb)
-    controlador_inteface = gestorinterface()
+    InterfaceAPI_GLB = InterfaceAPI(Gestor_de_arquivos_glb)
+    controlador_inteface = gestorinterface(InterfaceAPI_GLB)
     # ===========================================================
     
     
     app_bandeja = None
-
-
-
-    segundo_plano = Thread(target=start_teclado, daemon=True)
-    segundo_plano.start()
-
-
-
+    
 
     controlador_inteface.abrir_interface()
-    
-    def iniciar_loop():
-        asyncio.run(rodar_bandeja())
-    webview.start(iniciar_loop)
-    
+
+
+          
+            
+     
+    thread_teclado = Thread(target=start_teclado, daemon=True)
+    thread_da_bandeja = Thread(target=start_bandeja, daemon=True)
+
+  
+    thread_teclado.start()
+    thread_da_bandeja.start()
+
+
+    webview.start(gui='edgechromium')
 
 
         

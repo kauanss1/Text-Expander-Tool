@@ -18,10 +18,9 @@ class bandeja:
             imagem = Image.new('RGB', (64,64), color= 'blue')
 
         menu_bandeja = pystray.Menu(
-            pystray.MenuItem('empansor de texto ', lambda: None, enabled=False),
+            pystray.MenuItem('Expansor de Texto', None, enabled=False),
             pystray.Menu.SEPARATOR,
-            pystray.MenuItem('ABRI', self.abri),
-            # pystray.Menu.SEPARATOR,
+            pystray.MenuItem('ABRIR', self.abri),
             pystray.MenuItem('SAIR', self.encerrar),
         )
 

@@ -62,7 +62,10 @@ class teclado:
 
         self.digitar.release(keyboard.Key.ctrl)
         
+        # LEMBRA DE RETIRAR ISSO DEPOIS 
         self.gatilhos_sistema = self.gestor.carregar_gatilhos()
+        # LEMBRA DE RETIRAR ISSO DEPOIS 
+
         time.sleep(0.02)
         pyperclip.copy("")
         print("area de transferencia limpa ")

@@ -9,35 +9,51 @@ function btn_fechar() {
 }
 
 
-function exibirGatilhosNaTela() {
-    // 1. Seleciona a sua div bloco-preto
-    const blocoPreto = document.querySelector('.bloco-preto');
+
+
+
+
+
+async function exibirGatilhosNaTela() {
     
-    // Limpa a div para não duplicar os itens caso a função rode mais de uma vez
+    const blocoPreto = document.querySelector('.bloco-preto');
+    if (!blocoPreto) return;
+    
+    
     blocoPreto.innerHTML = '';
 
-    // 2. Simulando uma lista de gatilhos (depois isso virá do seu JSON)
-    const meusGatilhos = {
-        ";nfe": "Nota Fiscal emitida com sucesso",
-        ";obs": "Verificar observações no sistema",
-        ";vlw": "Muito obrigado pela sua atenção!"
-    };
+    try {
+       
+        const meusGatilhosReais = await window.pywebview.api.carregarjs();
 
-    // 3. Passa por cada gatilho e adiciona dentro da div
-    Object.keys(meusGatilhos).forEach(gatilho => {
-        const textoExpandido = meusGatilhos[gatilho];
+  
+        if (!meusGatilhosReais || Object.keys(meusGatilhosReais).length === 0) {
+            blocoPreto.innerHTML = '<span style="color: #666; padding: 15px; display: block;">Nenhum atalho cadastrado.</span>';
+            return;
+        }
 
-        // Cria a estrutura visual de cada linha de atalho
-        const itemAtalho = document.createElement('div');
-        itemAtalho.className = 'item-atalho'; // Classe para estilizar no CSS
-        
-        // Coloca o texto lá dentro
-        itemAtalho.innerHTML = `<strong>${gatilho}</strong>`;
 
-        // Coloca o novo item dentro da sua div bloco-preto
-        blocoPreto.appendChild(itemAtalho);
-    });
+        Object.keys(meusGatilhosReais).forEach(gatilho => {
+            // Cria uma nova div na memória do navegador
+            const itemAtalho = document.createElement('div');
+            itemAtalho.className = 'item-atalho';
+            itemAtalho.style.color = "white"; 
+            
+
+            itemAtalho.innerHTML = `<strong>${gatilho}</strong>`;
+            
+
+            blocoPreto.appendChild(itemAtalho);
+        });
+
+    } catch (erro) {
+        console.error("Erro ao conectar com o Python:", erro);
+        blocoPreto.innerHTML = '<span style="color: #ff4d4d; padding: 15px; display: block;">Erro ao carregar os atalhos.</span>';
+    }
 }
 
-// Executa a função assim que o script carregar para você ver o resultado
-exibirGatilhosNaTela();
+
+window.addEventListener('DOMContentLoaded', () => {
+    
+    setTimeout(exibirGatilhosNaTela, 1000);
+});
