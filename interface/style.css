@@ -182,7 +182,7 @@ nav.main {
 }
 
 nav.main header {
-    background-color: #6a82e2;
+    background-color: #222944;
     height: 7vh;
     width: 100%;
 }
@@ -193,9 +193,9 @@ nav.main main {
     width: 100%;
 }
 
-.bloco-preto {
+.bloco-atalhos {
     width: 20%;
-    background-color: #ffffff;
+    background-color: #1a1d29;
     padding: 25px;
     
     display: flex;
@@ -203,18 +203,26 @@ nav.main main {
     height: 86vh;
     
     gap: 10px;
-    overflow-y: auto;
+    
+    overflow-x: hidden;
    
 }
 
+
+.bloco-atalhos {
+    -ms-overflow-style: none;  /* IE e Edge antigo */ 
+    scrollbar-width: none;     /*Firefox barra de rolagem */ 
+    outline: none !important;
+}
+
 .bloco-laranja {
-    background-color: #f5680b;
+    background-color: #1a1d29;
     flex: 1;
     height: 86vh;
 }
 
 nav.main footer {
-    background-color: #26a65b;
+    background-color:  #222944;
     height: 7vh;
     width: 100%;
     display: flex;
@@ -235,14 +243,15 @@ nav.main footer {
 /* layout individual de cada atalho  */
 .item-atalho { 
     background-color: #2d2d2d;
-    padding: 10px 15px;
-    border-radius: 6px;
+    padding: 5px 15px;
+    border-radius: 3px;
     border-left: 4px solid #a855f7; 
     color: #ffffff;
     font-size: 14px;
     display: flex;
     justify-content: space-between; 
 }
-.item-atalho strong {
-    color: #4ea8de; /* O gatilho ganha destaque em azul */
+.item-atalho :hover strong {
+    
+    color: #a855f7; 
 }

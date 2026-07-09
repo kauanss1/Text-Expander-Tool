@@ -16,7 +16,7 @@ function btn_fechar() {
 
 async function exibirGatilhosNaTela() {
     
-    const blocoPreto = document.querySelector('.bloco-preto');
+    const blocoPreto = document.querySelector('.bloco-atalhos');
     if (!blocoPreto) return;
     
     
@@ -57,3 +57,49 @@ window.addEventListener('DOMContentLoaded', () => {
     
     setTimeout(exibirGatilhosNaTela, 1000);
 });
+
+
+
+
+
+
+
+
+
+
+async function adicionarNovoGatilho() {
+   
+    const inputGatilho = document.getElementById('campo-gatilho'); 
+    const inputTexto = document.getElementById('texto-do-gatilho');     
+
+    if (!inputGatilho || !inputTexto) return;
+
+    const gatilhoValor = inputGatilho.value.trim();
+    const textoValor = inputTexto.value.trim();
+
+    
+    if (gatilhoValor === "" || textoValor === "") {
+        alert("Por favor, preencha todos os campos!");
+        return;
+    }
+
+    try {
+       
+        const deuCerto = await window.pywebview.api.salvargatilho(gatilhoValor, textoValor);
+
+        if (deuCerto) {
+           
+            inputGatilho.value = '';
+            inputTexto.value = '';
+            btn_fechar()
+
+            
+            await exibirGatilhosNaTela(); 
+        } else {
+            alert("Erro do lado do servidor ao salvar o gatilho.");
+        }
+
+    } catch (erro) {
+        console.error("Erro ao conectar com a função de salvar do Python:", erro);
+    }
+}
