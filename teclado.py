@@ -1,21 +1,20 @@
 from pynput  import keyboard
 import time
 import pyperclip
-from variaveis import variaveis_manege
-from gestor_de_arquivos import Gestor_de_arquivos
-
+import gc
 
 class teclado:
-    def __init__(self):
+    def __init__(self, Gestor_de_arquivos_glb, gerencia_variaveisglb):
         self.temp = ""
         self.digitar = keyboard.Controller()
-        self.gerencia_variaveis = variaveis_manege()
-        self.gestor = Gestor_de_arquivos()
+        self.gerencia_variaveis = gerencia_variaveisglb
+        self.gestor = Gestor_de_arquivos_glb
         self.gatilhos_sistema = self.gestor.carregar_gatilhos()
 
     def tecla_ler( self, tecla):
         try:
-
+            total_objetos = len(gc.get_objects())
+            print(f"📊 Objetos vivos na RAM: {total_objetos}")
             tecla_char = tecla.char
             print(f"tecla acionada {tecla_char} ")
             if tecla_char is not None:

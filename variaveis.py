@@ -1,16 +1,18 @@
 from datetime import datetime
-from criador_pastas import Obj_criador_de_pasta
+
 import os
 import json
 
 class variaveis_manege:
-    def __init__(self):
+    def __init__(self, Gestor_de_arquivos_glb):
+
+        self.gestGestor_de_arquivos = Gestor_de_arquivos_glb
         self.VARIAVEIS_PADRAO = {}
         self.carregar_variaveis_do_arquivo()
     
    
     def carregar_variaveis_do_arquivo(self):
-        caminho_user = Obj_criador_de_pasta.caminhouser()
+        caminho_user = self.gestGestor_de_arquivos.caminhouser()
         
         self.VARIAVEIS_PADRAO = {
             "data": "",
