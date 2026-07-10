@@ -53,8 +53,8 @@ class teclado:
             time.sleep(0.01)
 
 
+        time.sleep(0.02)
         pyperclip.copy(txt_formatado)
-
         self.digitar.press(keyboard.Key.ctrl)
 
         self.digitar.press('v')

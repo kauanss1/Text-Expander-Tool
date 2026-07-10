@@ -43,7 +43,7 @@ class criador_pastas:
 
             dados_user ={
                 "nome": nome.strip(),
-                "Email": Email.strip(),
+                "email": Email.strip(),
                 "contato": contato.strip()
 
             }
