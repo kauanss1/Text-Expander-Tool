@@ -47,7 +47,7 @@ if __name__ == '__main__':
     
     app_bandeja = None
     
-
+    # gera interface em segundo plano 
     controlador_inteface.abrir_interface()
 
 
