@@ -20,7 +20,6 @@ def fechar(icon, item):
         
 
 def start_teclado():
-    criador_pastasglb.configuracao()
     print(" teclado ativado.")
     escutarr = teclado(Gestor_de_arquivos_glb, gerencia_variaveisglb)
     ouvinte = keyboard.Listener(on_press=escutarr.tecla_ler)  
@@ -52,7 +51,8 @@ if __name__ == '__main__':
     controlador_inteface.abrir_interface()
 
 
-          
+    # verifica as pastas e cria se nao existir      
+    criador_pastasglb.configuracao()
             
      
     thread_teclado = Thread(target=start_teclado, daemon=True)
