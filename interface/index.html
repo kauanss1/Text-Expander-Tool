@@ -10,13 +10,13 @@
 </head>
 
 <body>
-    <nav class="configuracaoinicial"style="display: none; ">
+    <nav class="configuracaoinicial" id="configuracaoinicial" style="display: none; ">
         <div class="grupo-input">
             <input type="text" id="campo-nome" placeholder="Digite seu nome"> 
             <input type="text" id="campo-email" placeholder="Digite seu email">
             <input type ="text" id="campo-telefone" placeholder="Digite seu telefone">
             <div class="grupo-botoes">
-                <button type="button" class="btn-cancelar" ">Cancelar</button>
+                <button type="button" class="btn-cancelar" onclick="confg_fechar()">Cancelar</button>
                 <button type="submit" class="btn-salvar" ">Salvar</button>
             </div>
         </div>
@@ -33,6 +33,7 @@
         </main>
         <footer>
             <button class="botoes" onclick=" btn_abri()">novo atalho +</button>
+            <button class="botoes" onclick=" confg_abri()">teste</button>
         </footer>
     </nav>
 
