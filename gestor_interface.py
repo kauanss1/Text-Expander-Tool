@@ -30,6 +30,7 @@ class gestorinterface:
             js_api=api_isolada
             )
             self.interface.events.closing +=self.ocutar
+            self.InterfaceAPI.registrar_janela(self.interface)
             
 
 

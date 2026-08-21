@@ -1,4 +1,5 @@
 import os
+from time import time
 import webview
 from pynput  import keyboard
 from teclado import teclado
@@ -33,6 +34,8 @@ def start_bandeja():
     app_bandeja.criar_icon()
 
 
+
+
 if __name__ == '__main__':
 
     # criacao de todos os obijetos 
@@ -63,7 +66,13 @@ if __name__ == '__main__':
     thread_da_bandeja.start()
 
 
-    webview.start(gui='edgechromium')
+    # webview.start(gui='edgechromium')
+
+    
+    def inicializar_sistema():
+        InterfaceAPI_GLB.chamar_js("confg_abri")
+
+    webview.start(inicializar_sistema, gui='edgechromium')
 
 
         
