@@ -8,7 +8,10 @@ function btn_fechar() {
     telaCadastro.style.display = 'none'; 
 }
 
-
+function configuracaoinicial() {
+    const telaCadastro = document.getElementById('configuracaoinicial');
+    telaCadastro.style.display = 'block'; 
+}
 
 
 

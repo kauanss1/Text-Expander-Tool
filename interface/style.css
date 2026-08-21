@@ -14,29 +14,8 @@ body {
 /* ==========================================
    2. JANELA FLUTUANTE (Modificado para sobreposição)
    ========================================== */
-.novo-atalho {
-    /* Garante a flutuação por cima de tudo */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999; /* Joga a janela para a camada mais alta da tela */
-
-    /* Seus estilos visuais mantidos */
-    width: 100%;
-    max-width: 600px;
-    padding: 30px;
-    background-color: #1a1d29; 
-    border-radius: 12px;
-    border: 1px solid #282c3e;
-    
-    /* Sombra pesada para destacar que a janela está flutuando */
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
-    /* Nota: Esse truque do segundo valor no box-shadow (0 0 0 100vw) cria o 
-       fundo escurecido ao redor da janela sem precisar de novas tags no HTML! */
-}
-
-/* ==========================================
+   
+   /* ==========================================
    3. FORMULÁRIO E INPUTS
    ========================================== */
 .grupo-input {
@@ -77,8 +56,8 @@ body {
 }
 
 /* ==========================================
-   4. GRUPO DE BOTÕES DA JANELA
-   ========================================== */
+4. GRUPO DE BOTÕES DA JANELA
+========================================== */
 .grupo-botoes {
     display: flex;
     justify-content: flex-end; 
@@ -172,8 +151,8 @@ body {
 }
 
 /* ==========================================
-   5. LAYOUT DE FUNDO (Menu Principal Flexbox)
-   ========================================== */
+5. LAYOUT DE FUNDO (Menu Principal Flexbox)
+========================================== */
 nav.main {
     display: flex;
     flex-direction: column;
@@ -205,7 +184,7 @@ nav.main main {
     gap: 10px;
     
     overflow-x: hidden;
-   
+    
 }
 
 
@@ -254,4 +233,49 @@ nav.main footer {
 .item-atalho :hover strong {
     
     color: #a855f7; 
+}
+
+
+
+
+.configuracaoinicial {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; 
+    
+    
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color:   #1a1d29; 
+    border-radius: 12px;
+    border: 1px solid #282c3e;
+    
+    
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
+    
+}
+.novo-atalho {
+    /* Garante a flutuação por cima de tudo */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Joga a janela para a camada mais alta da tela */
+
+    /* Seus estilos visuais mantidos */
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #1a1d29; 
+    border-radius: 12px;
+    border: 1px solid #282c3e;
+    
+    /* Sombra pesada para destacar que a janela está flutuando */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
+    /* Nota: Esse truque do segundo valor no box-shadow (0 0 0 100vw) cria o 
+       fundo escurecido ao redor da janela sem precisar de novas tags no HTML! */
 }
