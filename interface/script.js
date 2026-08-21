@@ -110,3 +110,32 @@ async function adicionarNovoGatilho() {
         console.error("Erro ao conectar com a função de salvar do Python:", erro);
     }
 }
+
+
+
+
+
+
+async function dados_user() {
+    
+    const nomeInput = document.getElementById('campo-nome').value;
+    const emailInput = document.getElementById('campo-email').value;
+    const telefoneInput = document.getElementById('campo-telefone').value;
+
+    
+    if (!nomeInput.trim()) {
+        alert("Por favor, preencha o nome!");
+        return;
+    }
+
+    
+    const resultado = await window.pywebview.api.salvar_dados_user(nomeInput, emailInput, telefoneInput);
+
+    if (resultado) {
+        alert("Informações salvas com sucesso!");
+        
+        document.getElementById('configuracaoinicial').style.display = 'none';
+    } else {
+        alert("Erro ao salvar as informações.");
+    }
+}

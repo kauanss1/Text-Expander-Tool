@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 
     # verifica as pastas e cria se nao existir      
-    criador_pastasglb.configuracao()
+    criador_pastasglb.configuracao_inicial()
             
      
     thread_teclado = Thread(target=start_teclado, daemon=True)
@@ -70,9 +70,14 @@ if __name__ == '__main__':
 
     
     def inicializar_sistema():
-        InterfaceAPI_GLB.chamar_js("confg_abri")
+        i = criador_pastasglb.dados_user()
+        if i == 1:
+            InterfaceAPI_GLB.chamar_js("confg_abri")
 
-    webview.start(inicializar_sistema, gui='edgechromium')
+    webview.start(inicializar_sistema,gui='edgechromium')
+
+ 
+
 
 
         

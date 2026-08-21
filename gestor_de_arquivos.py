@@ -54,4 +54,20 @@ class Gestor_de_arquivos:
             except Exception as e:
                 
                 return False
-      
+
+    def dados_user(self, nome, email, contato):
+
+            dados_user = {
+                "nome": nome,
+                "email": email,
+                "contato": contato
+            }
+
+            try:
+                with open(self.criador_pastas.caminho_user, "w", encoding="utf-8") as f:
+                    json.dump(dados_user, f , ensure_ascii=False , indent=4)
+                    print(" Perfil do usuário salvo com sucesso!")
+            except Exception  as e:
+                print(f"nao criou pasta {e}")
+
+            return 1

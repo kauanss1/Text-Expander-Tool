@@ -20,3 +20,8 @@ class InterfaceAPI:
     def salvargatilho(self, gatilho, texto):
         
         return self.gestor.salvargatilho_novo(gatilho, texto)
+
+    def salvar_dados_user(self, nome, email, contato):
+
+        self.gestor.dados_user(nome, email, contato)
+        return True
