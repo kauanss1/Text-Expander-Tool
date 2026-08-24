@@ -1,4 +1,6 @@
-
+/* ==========================================
+   1. RESET E ESTILOS GERAIS
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -7,152 +9,15 @@
 
 body {
     height: 100vh;
-    background-color: #1a1d29;
+    background-color: #0f172a; /* Slate 900: Profundo, suave e moderno */
+    color: #f1f5f9; /* Texto Off-white de alto contraste visual */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow: hidden;
 }
 
 /* ==========================================
-   2. JANELA FLUTUANTE (Modificado para sobreposição)
+   2. LAYOUT PRINCIPAL (Nav, Header, Main, Footer)
    ========================================== */
-   
-   /* ==========================================
-   3. FORMULÁRIO E INPUTS
-   ========================================== */
-.grupo-input {
-    display: flex;
-    flex-direction: column;
-    gap: 16px; 
-}
-
-.grupo-input input[type="text"],
-.grupo-input textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px;
-    background-color: #121420;
-    border: 2px solid #282c3e;
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 15px;
-    outline: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.grupo-input textarea {
-    height: 350px; 
-    resize: none;   
-    line-height: 1.6;
-}
-
-.grupo-input input[type="text"]:focus,
-.grupo-input textarea:focus {
-    border-color: #a855f7; 
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4); 
-}
-
-.grupo-input ::placeholder {
-    color: #64748b;
-    opacity: 1;
-}
-
-/* ==========================================
-4. GRUPO DE BOTÕES DA JANELA
-========================================== */
-.grupo-botoes {
-    display: flex;
-    justify-content: flex-end; 
-    gap: 12px; 
-    margin-top: 16px;
-}
-
-.grupo-botoes button {
-    display: inline-block;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    letter-spacing: .05rem;
-    transition: all .3s;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-/* --- Botão Salvar --- */
-.btn-salvar {
-    color: #ffffff;
-    background-color: transparent;
-}
-
-.btn-salvar::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #10b981;
-    border-radius: 8px;
-    z-index: -2;
-}
-
-.btn-salvar::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-color: #047857; 
-    transition: all .3s;
-    border-radius: 8px;
-    z-index: -1;
-}
-
-.btn-salvar:hover::before {
-    width: 100%;
-}
-
-/* --- Botão Cancelar --- */
-.btn-cancelar {
-    color: #ffffff;
-    background-color: transparent;
-}
-
-.btn-cancelar::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ef4444; 
-    border-radius: 8px;
-    z-index: -2;
-}
-
-.btn-cancelar::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-color: #b91c1c; 
-    transition: all .3s;
-    border-radius: 8px;
-    z-index: -1;
-}
-
-.btn-cancelar:hover::before {
-    width: 100%;
-}
-
-/* ==========================================
-5. LAYOUT DE FUNDO (Menu Principal Flexbox)
-========================================== */
 nav.main {
     display: flex;
     flex-direction: column;
@@ -161,7 +26,8 @@ nav.main {
 }
 
 nav.main header {
-    background-color: #222944;
+    background-color: #1e293b; /* Slate 800 */
+    border-bottom: 1px solid #334155;
     height: 7vh;
     width: 100%;
 }
@@ -172,36 +38,9 @@ nav.main main {
     width: 100%;
 }
 
-.bloco-atalhos {
-    width: 20%;
-    background-color: #1a1d29;
-    padding: 25px;
-    
-    display: flex;
-    flex-direction: column;
-    height: 86vh;
-    
-    gap: 10px;
-    
-    overflow-x: hidden;
-    
-}
-
-
-.bloco-atalhos {
-    -ms-overflow-style: none;  /* IE e Edge antigo */ 
-    scrollbar-width: none;     /*Firefox barra de rolagem */ 
-    outline: none !important;
-}
-
-.bloco-laranja {
-    background-color: #1a1d29;
-    flex: 1;
-    height: 86vh;
-}
-
 nav.main footer {
-    background-color:  #222944;
+    background-color: #1e293b;
+    border-top: 1px solid #334155;
     height: 7vh;
     width: 100%;
     display: flex;
@@ -209,133 +48,244 @@ nav.main footer {
     padding-left: 20px; 
 }
 
-.botoes {
-    padding: 5px 15px;
-    cursor: pointer;
+/* Painel Lateral de Atalhos */
+.bloco-atalhos {
+    width: 20%;
+    height: 86vh;
+    background-color: #0f172a;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-x: hidden;
+    border-right: 1px solid #1e293b;
+    
+    -ms-overflow-style: none; 
+    scrollbar-width: none;    
+    outline: none !important;
 }
 
+.bloco-atalhos::-webkit-scrollbar {
+    display: none;             
+}
 
+/* Painel Central (Estilo Caderno Tech Moderno) */
+.bloco-laranja {
+    flex: 1;
+    height: 86vh;
+    color: #f8fafc;
+    background-color: #0b1329; /* Fundo levemente mais escuro para o texto "saltar" */
+    background-image: 
+        linear-gradient(90deg, transparent 48px, rgba(56, 189, 248, 0.5) 48px, rgba(56, 189, 248, 0.5) 50px, transparent 50px),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 36px;
+    background-position: 0 0, 0 0;
+    line-height: 36px;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    padding-top: 10px;
+    padding-left: 65px;
+    padding-right: 25px;
+    padding-bottom: 20px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
 
-
-
-/* ===================================== */
-/* layout individual de cada atalho  */
+/* ==========================================
+   3. CARDS E ITENS DA LISTA (Sidebar)
+   ========================================== */
 .item-atalho { 
     position: relative;
-    background-color: #2d2d2d;
-    padding: 8px 15px;
-    border-radius: 3px;
-    color: #ffffff;
+    background-color: #1e293b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #94a3b8; /* Texto em espera neutro e legível */
     font-size: 14px;
+    font-weight: 500;
     display: flex;
     justify-content: space-between; 
-    overflow: hidden; /* Garante que o preenchimento fique dentro do card */
-    transition: color 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #334155;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
 }
 
-/* A barrinha roxa inicial (4px de largura) */
+/* Barrinha Mint Cyan no Hover */
 .item-atalho::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
-    width: 4px; /* Começa com a largura normal da borda */
+    width: 4px;
     height: 100%;
-    background-color: #a855f7;
-    z-index: -1; /* Fica atrás do texto */
-    transition: width 0.35s ease; /* Transição suave na horizontal */
+    background-color: #06b6d4; /* Cyan 500 */
+    z-index: -1;
+    transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-/* Conteúdo dentro do card fica acima do fundo roxo */
 .item-atalho * {
     position: relative;
     z-index: 2;
 }
 
-/* Estado no HOVER: preenche até 100% na horizontal */
 .item-atalho:hover {
-    color: #ffffff; /* Ajuste a cor do texto no hover se quiser */
+    color: #ffffff;
+    border-color: #06b6d4;
     transform: translateX(4px);
 }
 
 .item-atalho:hover::before {
-    width: 100%; /* Expande na horizontal cobrindo todo o card */
-}
-
-
-.configuracaoinicial {
-    
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999; 
-    
-    
     width: 100%;
-    max-width: 600px;
-    padding: 30px;
-    background-color:   #1a1d29; 
-    border-radius: 12px;
-    border: 1px solid #282c3e;
-    
-    
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
-    
-}
-.novo-atalho {
-    /* Garante a flutuação por cima de tudo */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999; /* Joga a janela para a camada mais alta da tela */
-
-    /* Seus estilos visuais mantidos */
-    width: 100%;
-    max-width: 600px;
-    padding: 30px;
-    background-color: #1a1d29; 
-    border-radius: 12px;
-    border: 1px solid #282c3e;
-    
-    /* Sombra pesada para destacar que a janela está flutuando */
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
-    /* Nota: Esse truque do segundo valor no box-shadow (0 0 0 100vw) cria o 
-       fundo escurecido ao redor da janela sem precisar de novas tags no HTML! */
+    background-color: rgba(6, 182, 212, 0.15); /* Glow sutil */
 }
 
+.item-atalho.ativo {
+    background-color: #0f172a;
+    color: #38bdf8; /* Cyan fluorescente no ativo */
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    transform: translateX(4px);
+}
+
+.botoes {
+    padding: 6px 16px;
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+/* ==========================================
+   4. FORMULÁRIO E INPUTS
+   ========================================== */
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+}
 
 .grupo-input ul {
-    color: #ffffff;
-    font-size: 16px;
+    color: #f1f5f9;
+    font-size: 15px;
     margin-bottom: 10px;
 }
 
+.grupo-input input[type="text"],
+.grupo-input textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    background-color: #090d16;
+    border: 1.5px solid #334155;
+    border-radius: 8px;
+    color: #f8fafc;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s ease;
+}
 
+.grupo-input textarea {
+    height: 350px; 
+    resize: none;   
+    line-height: 1.6;
+}
+
+.grupo-input input[type="text"]:focus,
+.grupo-input textarea:focus {
+    border-color: #10b981; /* Foco em Emerald/Mint para indicar edição ativa */
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3); 
+}
+
+.grupo-input ::placeholder {
+    color: #64748b;
+    opacity: 1;
+}
+
+/* ==========================================
+   5. BOTÕES DE AÇÃO (Modal)
+   ========================================== */
+.grupo-botoes {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 12px; 
+    margin-top: 20px;
+}
+
+.grupo-botoes button {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* --- Botão Salvar (Emerald / Mint Vibrante) --- */
+.btn-salvar {
+    color: #022c22;
+    background-color: #10b981;
+    font-weight: 700;
+}
+
+.btn-salvar:hover {
+    background-color: #34d399;
+    box-shadow: 0 0 16px rgba(52, 211, 153, 0.4);
+    transform: translateY(-1px);
+}
+
+/* --- Botão Cancelar (Rose Soft) --- */
+.btn-cancelar {
+    color: #f8fafc;
+    background-color: #334155;
+}
+
+.btn-cancelar:hover {
+    background-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   6. JANELAS MODAIS, OVERLAY E PERFIL
+   ========================================== */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.0); /* Substitui a sombra do box-shadow */
-    z-index: 9998; /* Fica logo atrás do modal (que tem 9999) */
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(6px); /* Efeito de desfoque moderno de fundo */
+    z-index: 9998;
 }
 
+.configuracaoinicial,
+.novo-atalho {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 580px;
+    padding: 30px;
+    background-color: #1e293b; 
+    border-radius: 16px;
+    border: 1px solid #475569;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
 
-
-
-
-
-/* Container que posiciona a janela logo abaixo do botão */
+/* Perfil do Usuário e Dropdown */
 .user-menu-container {
     position: relative;
     display: inline-block;
 }
 
-/* Estilo do Botão */
 .btn-perfil {
     background: none;
     border: none;
@@ -343,44 +293,85 @@ nav.main footer {
     padding: 0;
 }
 
-/* Circulo com as Iniciais (Substitui a imagem) */
 .avatar-iniciais {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: #a855f7; /* Cor de fundo roxa (pode trocar) */
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 16px;
+    border-radius: 12px; /* Visual "Squircle" mais moderno que o círculo perfeito */
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    color: #022c22;
+    font-weight: 800;
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
-    transition: transform 0.2s ease, filter 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .avatar-iniciais:hover {
-    filter: brightness(1.1);
     transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
 }
 
-/* Janela Modal do Google */
 .menu-config {
-    display: none; /* Inicia oculta */
+    display: none;
     position: absolute;
-    top: 50px; /* Distância abaixo do botão */
-    right: 0;  /* Alinhado à direita */
-    width: 350px;
-    min-height: 200px;
-    background-color: #282a2d; /* Fundo escuro estilo Google */
-    border: 1px solid #3c4043;
-    border-radius: 24px;
+    top: 52px;
+    right: 0;
+    width: 320px;
+    min-height: 180px;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
-/* Classe ativada via JavaScript */
 .menu-config.ativo {
     display: block;
+}
+
+
+
+/* ==========================================
+   BOTÃO PRINCIPAL (.botoes_main)
+   ========================================== */
+.botoes_main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #10b981; /* Mint Vibrante */
+    color: #022c22;             /* Texto escuro de alto contraste */
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    outline: none;
+}
+
+/* Hover: Elevação e Brilho Mint */
+.botoes_main:hover {
+    background-color: #34d399;
+    color: #022c22;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+}
+
+/* Clique (Active) */
+.botoes_main:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Foco acessível via Teclado */
+.botoes_main:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
 }

@@ -1,141 +1,132 @@
-function btn_abri() {
-    const telaCadastro = document.getElementById('cadastro_atalhos');
-    telaCadastro.style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
+// ==========================================
+// ESTADO GLOBAL
+// ==========================================
+let todosOsAtalhos = {};
+
+// ==========================================
+// GERENCIAMENTO DE MODAIS
+// ==========================================
+function abrirModal(idModal) {
+    const modal = document.getElementById(idModal);
+    const overlay = document.getElementById('overlay');
+    if (modal) modal.style.display = 'block';
+    if (overlay) overlay.style.display = 'block';
 }
 
-function btn_fechar() {
-    const telaCadastro = document.getElementById('cadastro_atalhos');
-    telaCadastro.style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-    
+function fecharModal(idModal) {
+    const modal = document.getElementById(idModal);
+    const overlay = document.getElementById('overlay');
+    if (modal) modal.style.display = 'none';
+    if (overlay) overlay.style.display = 'none';
 }
 
-function confg_abri() {
-    const telaCadastro = document.getElementById('configuracaoinicial');
-    telaCadastro.style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-}
+// Funções de atalho para os botões do HTML
+const btn_abri = () => abrirModal('cadastro_atalhos');
+const btn_fechar = () => fecharModal('cadastro_atalhos');
+const confg_abri = () => abrirModal('configuracaoinicial');
+const confg_fechar = () => fecharModal('configuracaoinicial');
 
+// ==========================================
+// RENDERIZAÇÃO E ATALHOS
+// ==========================================
+function exibirConteudo(gatilho, elementoClicado) {
+    const blocoLaranja = document.querySelector('.bloco-laranja');
+    if (!blocoLaranja) return;
 
+    // Atualiza o texto na folha
+    const texto = todosOsAtalhos[gatilho] || "(Texto do atalho vazio)";
+    blocoLaranja.innerText = texto;
 
-
-
-async function exibirGatilhosNaTela() {
-    
-    const blocoPreto = document.querySelector('.bloco-atalhos');
-    if (!blocoPreto) return;
-    
-    
-    blocoPreto.innerHTML = '';
-
-    try {
-       
-        const meusGatilhosReais = await window.pywebview.api.carregarjs();
-
-  
-        if (!meusGatilhosReais || Object.keys(meusGatilhosReais).length === 0) {
-            blocoPreto.innerHTML = '<span style="color: #666; padding: 15px; display: block;">Nenhum atalho cadastrado.</span>';
-            return;
-        }
-
-
-        Object.keys(meusGatilhosReais).forEach(gatilho => {
-            // Cria uma nova div na memória do navegador
-            const itemAtalho = document.createElement('div');
-            itemAtalho.className = 'item-atalho';
-            itemAtalho.style.color = "white"; 
-            
-
-            itemAtalho.innerHTML = `<strong>${gatilho}</strong>`;
-            
-
-            blocoPreto.appendChild(itemAtalho);
-        });
-
-    } catch (erro) {
-        console.error("Erro ao conectar com o Python:", erro);
-        blocoPreto.innerHTML = '<span style="color: #ff4d4d; padding: 15px; display: block;">Erro ao carregar os atalhos.</span>';
+    // Atualiza o destaque visual
+    document.querySelectorAll('.item-atalho').forEach(el => el.classList.remove('ativo'));
+    if (elementoClicado) {
+        elementoClicado.classList.add('ativo');
     }
 }
 
+async function carregarListaAtalhos() {
+    try {
+        todosOsAtalhos = await window.pywebview.api.carregarjs();
+        const container = document.querySelector('.bloco-atalhos');
+        if (!container) return;
 
-window.addEventListener('DOMContentLoaded', () => {
-    
-    setTimeout(exibirGatilhosNaTela, 1000);
-});
+        container.innerHTML = '';
 
+        Object.entries(todosOsAtalhos).forEach(([gatilho]) => {
+            const item = document.createElement('div');
+            item.className = 'item-atalho';
+            item.textContent = gatilho;
+            item.onclick = () => exibirConteudo(gatilho, item);
+            container.appendChild(item);
+        });
+    } catch (erro) {
+        console.error("Erro ao carregar atalhos do backend:", erro);
+    }
+}
 
-
-
-
-
-
-
-
-
+// ==========================================
+// AÇÕES COM A API PYTHON
+// ==========================================
 async function adicionarNovoGatilho() {
-   
-    const inputGatilho = document.getElementById('campo-gatilho'); 
-    const inputTexto = document.getElementById('texto-do-gatilho');     
+    const inputGatilho = document.getElementById('campo-gatilho');
+    const inputTexto = document.getElementById('texto-do-gatilho');
 
     if (!inputGatilho || !inputTexto) return;
 
-    const gatilhoValor = inputGatilho.value.trim();
-    const textoValor = inputTexto.value.trim();
+    const gatilho = inputGatilho.value.trim();
+    const texto = inputTexto.value.trim();
 
-    
-    if (gatilhoValor === "" || textoValor === "") {
+    if (!gatilho || !texto) {
         alert("Por favor, preencha todos os campos!");
         return;
     }
 
     try {
-       
-        const deuCerto = await window.pywebview.api.salvargatilho(gatilhoValor, textoValor);
+        const sucesso = await window.pywebview.api.salvargatilho(gatilho, texto);
 
-        if (deuCerto) {
-           
+        if (sucesso) {
             inputGatilho.value = '';
             inputTexto.value = '';
-            btn_fechar()
-
-            
-            await exibirGatilhosNaTela(); 
+            btn_fechar();
+            await carregarListaAtalhos();
         } else {
             alert("Erro do lado do servidor ao salvar o gatilho.");
         }
-
     } catch (erro) {
-        console.error("Erro ao conectar com a função de salvar do Python:", erro);
+        console.error("Erro ao salvar o gatilho:", erro);
     }
 }
 
-
-
-
-
-
 async function dados_user() {
-    
-    const nomeInput = document.getElementById('campo-nome').value;
-    const emailInput = document.getElementById('campo-email').value;
-    const telefoneInput = document.getElementById('campo-telefone').value;
+    const nome = document.getElementById('campo-nome')?.value.trim();
+    const email = document.getElementById('campo-email')?.value.trim();
+    const telefone = document.getElementById('campo-telefone')?.value.trim();
 
-        
-        if (!nomeInput.trim() || !emailInput.trim()|| !telefoneInput.trim()) {
+    if (!nome || !email || !telefone) {
         alert("Por favor, preencha o nome, o email e o telefone!");
         return;
     }
 
-    
-    const resultado = await window.pywebview.api.salvar_dados_user(nomeInput, emailInput, telefoneInput);
+    try {
+        const sucesso = await window.pywebview.api.salvar_dados_user(nome, email, telefone);
 
-    if (resultado) {
-    
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('configuracaoinicial').style.display = 'none';
-    } else {
-        alert("Erro ao salvar as informações.");
+        if (sucesso) {
+            fecharModal('configuracaoinicial');
+        } else {
+            alert("Erro ao salvar as informações.");
+        }
+    } catch (erro) {
+        console.error("Erro ao salvar dados do usuário:", erro);
     }
 }
+
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.pywebview) {
+        carregarListaAtalhos();
+    } else {
+        window.addEventListener('pywebviewready', carregarListaAtalhos);
+    }
+});
