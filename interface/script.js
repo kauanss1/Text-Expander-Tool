@@ -1,22 +1,22 @@
 function btn_abri() {
     const telaCadastro = document.getElementById('cadastro_atalhos');
-    telaCadastro.style.display = 'block'; 
+    telaCadastro.style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
 }
 
 function btn_fechar() {
     const telaCadastro = document.getElementById('cadastro_atalhos');
-    telaCadastro.style.display = 'none'; 
+    telaCadastro.style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    
 }
 
 function confg_abri() {
     const telaCadastro = document.getElementById('configuracaoinicial');
-    telaCadastro.style.display = 'block'; 
+    telaCadastro.style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
 }
 
-function confg_fechar() {
-    const telaCadastro = document.getElementById('configuracaoinicial');
-    telaCadastro.style.display = 'none'; 
-}
 
 
 
@@ -122,9 +122,9 @@ async function dados_user() {
     const emailInput = document.getElementById('campo-email').value;
     const telefoneInput = document.getElementById('campo-telefone').value;
 
-    
-    if (!nomeInput.trim()) {
-        alert("Por favor, preencha o nome!");
+        
+        if (!nomeInput.trim() || !emailInput.trim()|| !telefoneInput.trim()) {
+        alert("Por favor, preencha o nome, o email e o telefone!");
         return;
     }
 
@@ -132,8 +132,8 @@ async function dados_user() {
     const resultado = await window.pywebview.api.salvar_dados_user(nomeInput, emailInput, telefoneInput);
 
     if (resultado) {
-        alert("Informações salvas com sucesso!");
-        
+    
+        document.getElementById('overlay').style.display = 'none';
         document.getElementById('configuracaoinicial').style.display = 'none';
     } else {
         alert("Erro ao salvar as informações.");

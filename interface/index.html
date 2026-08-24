@@ -10,19 +10,22 @@
 </head>
 
 <body>
+    <div id="overlay" class="overlay" style="display: none;"></div>
     <nav class="configuracaoinicial" id="configuracaoinicial" style="display: none; ">
         <div class="grupo-input">
-            <input type="text" id="campo-nome" placeholder="Digite seu nome"> 
-            <input type="text" id="campo-email" placeholder="Digite seu email">
-            <input type ="text" id="campo-telefone" placeholder="Digite seu telefone">
+            <ul>Bem-vindo! precisamos de algumas informações para configurar seu perfil.</ul>
+            <input type="text" id="campo-nome" placeholder="Digite seu nome:"> 
+            <input type="text" id="campo-email" placeholder="Digite seu email:">
+            <input type ="text" id="campo-telefone" placeholder="Digite seu telefone:">
             <div class="grupo-botoes">
-                <button type="button" class="btn-cancelar" onclick="confg_fechar()">Cancelar</button>
                 <button type="submit" class="btn-salvar" onclick="dados_user()">Salvar</button>
             </div>
         </div>
 
 
     </nav>
+
+    
 
     <nav class="main" id="pagina_inicial" >
 
@@ -33,7 +36,6 @@
         </main>
         <footer>
             <button class="botoes" onclick=" btn_abri()">novo atalho +</button>
-            <button class="botoes" onclick=" confg_abri()">teste</button>
         </footer>
     </nav>
 

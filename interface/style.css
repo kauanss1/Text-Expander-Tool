@@ -221,21 +221,47 @@ nav.main footer {
 /* ===================================== */
 /* layout individual de cada atalho  */
 .item-atalho { 
+    position: relative;
     background-color: #2d2d2d;
-    padding: 5px 15px;
+    padding: 8px 15px;
     border-radius: 3px;
-    border-left: 4px solid #a855f7; 
     color: #ffffff;
     font-size: 14px;
     display: flex;
     justify-content: space-between; 
-}
-.item-atalho :hover strong {
-    
-    color: #a855f7; 
+    overflow: hidden; /* Garante que o preenchimento fique dentro do card */
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 1;
 }
 
+/* A barrinha roxa inicial (4px de largura) */
+.item-atalho::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px; /* Começa com a largura normal da borda */
+    height: 100%;
+    background-color: #a855f7;
+    z-index: -1; /* Fica atrás do texto */
+    transition: width 0.35s ease; /* Transição suave na horizontal */
+}
 
+/* Conteúdo dentro do card fica acima do fundo roxo */
+.item-atalho * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Estado no HOVER: preenche até 100% na horizontal */
+.item-atalho:hover {
+    color: #ffffff; /* Ajuste a cor do texto no hover se quiser */
+    transform: translateX(4px);
+}
+
+.item-atalho:hover::before {
+    width: 100%; /* Expande na horizontal cobrindo todo o card */
+}
 
 
 .configuracaoinicial {
@@ -278,4 +304,83 @@ nav.main footer {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 100vw rgba(0, 0, 0, 0.5);
     /* Nota: Esse truque do segundo valor no box-shadow (0 0 0 100vw) cria o 
        fundo escurecido ao redor da janela sem precisar de novas tags no HTML! */
+}
+
+
+.grupo-input ul {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.0); /* Substitui a sombra do box-shadow */
+    z-index: 9998; /* Fica logo atrás do modal (que tem 9999) */
+}
+
+
+
+
+
+
+/* Container que posiciona a janela logo abaixo do botão */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilo do Botão */
+.btn-perfil {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Circulo com as Iniciais (Substitui a imagem) */
+.avatar-iniciais {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #a855f7; /* Cor de fundo roxa (pode trocar) */
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.avatar-iniciais:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+/* Janela Modal do Google */
+.menu-config {
+    display: none; /* Inicia oculta */
+    position: absolute;
+    top: 50px; /* Distância abaixo do botão */
+    right: 0;  /* Alinhado à direita */
+    width: 350px;
+    min-height: 200px;
+    background-color: #282a2d; /* Fundo escuro estilo Google */
+    border: 1px solid #3c4043;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Classe ativada via JavaScript */
+.menu-config.ativo {
+    display: block;
 }
