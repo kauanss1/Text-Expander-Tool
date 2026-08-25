@@ -9,7 +9,7 @@ class teclado:
         self.digitar = keyboard.Controller()
         self.gerencia_variaveis = gerencia_variaveisglb
         self.gestor = Gestor_de_arquivos_glb
-        self.gatilhos_sistema = self.gestor.carregar_gatilhos()
+        self.gatilhos_sistema = self.gestor.extrair_atalhos_plano()
 
     def tecla_ler( self, tecla):
         try:
@@ -28,6 +28,7 @@ class teclado:
             if tecla == keyboard.Key.backspace and len(self.temp)>0:
                 self.temp = self.temp[:-1]
             elif tecla == keyboard.Key.space and self.temp.startswith("\\"):
+                self.gatilhos_sistema = self.gestor.extrair_atalhos_plano()
 
                 if self.temp in self.gatilhos_sistema:
                     texto_sub= self.gatilhos_sistema[self.temp]
@@ -63,7 +64,7 @@ class teclado:
         self.digitar.release(keyboard.Key.ctrl)
         
         # LEMBRA DE RETIRAR ISSO DEPOIS 
-        self.gatilhos_sistema = self.gestor.carregar_gatilhos()
+        self.gatilhos_sistema = self.gestor.extrair_atalhos_plano()
         # LEMBRA DE RETIRAR ISSO DEPOIS 
 
         time.sleep(0.02)

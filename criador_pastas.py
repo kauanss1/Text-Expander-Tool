@@ -11,21 +11,30 @@ class criador_pastas:
 
 
     def configuracao_inicial(self):
+        # Cria a pasta do sistema se não existir
         if not os.path.exists(self.pasta_sistema):
-           
             os.makedirs(self.pasta_sistema)
+            
+        # Cria o arquivo de atalhos com a pasta padrão "gatilhos"
         if not os.path.exists(self.caminho_gatilhos):
             dados_iniciais = {
-                "\\help": "Olá! Sou o suporte técnico. Como posso te ajudar hoje?"
+                "nome": "gatilhos",
+                "atalhos": [
+                    {
+                        "gatilho": "\\help",
+                        "conteudo": "Olá! Sou o suporte técnico. Como posso te ajudar hoje?"
+                    }
+                ],
+                "pastas": []
             }
 
             try:
                 with open(self.caminho_gatilhos, "w", encoding="utf-8") as f:
-                    json.dump(dados_iniciais, f , ensure_ascii=False, indent=4)
-                    print("\\help criado ")
+                    json.dump(dados_iniciais, f, ensure_ascii=False, indent=4)
+                print("Pasta raiz 'gatilhos' e atalho \\help criados com sucesso!")
 
             except Exception as e:
-                print(f"falha ao criar gatilho {e}")
+                print(f"Falha ao criar estrutura inicial: {e}")
 
     def dados_user(self):
         if not os.path.exists(self.caminho_user):

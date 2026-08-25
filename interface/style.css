@@ -375,3 +375,120 @@ nav.main footer {
     outline: 2px solid #38bdf8;
     outline-offset: 2px;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Container de cada pasta */
+.pasta-container {
+    margin-bottom: 6px;
+    user-select: none;
+}
+
+/* Título da pasta clicável (o summary) */
+.pasta-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #c084fc; /* Roxo claro */
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    list-style: none; /* Remove a seta padrão em alguns navegadores */
+    transition: all 0.2s ease;
+}
+
+/* Remove a seta triangular padrão no Chrome/WebKit */
+.pasta-titulo::-webkit-details-marker {
+    display: none;
+}
+
+/* Efeito ao passar o mouse na pasta */
+.pasta-titulo:hover {
+    background-color: rgba(168, 85, 247, 0.15);
+    border-color: #a855f7;
+    color: #ffffff;
+}
+
+/* Recuo e linha guia das subpastas/filhos */
+.pasta-filhos {
+    padding-left: 12px;
+    margin-left: 10px;
+    margin-top: 6px;
+    border-left: 2px solid rgba(168, 85, 247, 0.25); /* Linha roxa lateral */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Caixa do Select */
+#seletor-pasta {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background-color: #1e1f29;
+    color: #f3f4f6;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    /* Remove a seta padrão do sistema operacional */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Adiciona uma setinha SVG customizada branca */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+/* Quando clica no select (Foco) */
+#seletor-pasta:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.25);
+}
+
+/* Opções dentro do dropdown */
+#seletor-pasta option {
+    background-color: #1a1d26;
+    color: #ffffff;
+    padding: 10px;
+}

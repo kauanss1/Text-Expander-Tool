@@ -17,9 +17,9 @@ class InterfaceAPI:
         gatilhos = self.gestor.carregar_gatilhos()
         return gatilhos if gatilhos else {}
 
-    def salvargatilho(self, gatilho, texto):
-        
-        return self.gestor.salvargatilho_novo(gatilho, texto)
+    def salvargatilho(self, gatilho, texto, pasta_alvo="gatilhos"):
+        # Repassa os 3 parâmetros para o gestor
+        return self.gestor.salvargatilho_novo(gatilho, texto, pasta_alvo)
 
     def salvar_dados_user(self, nome, email, contato):
 
