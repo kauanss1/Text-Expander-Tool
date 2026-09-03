@@ -259,3 +259,21 @@ window.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('pywebviewready', carregarListaAtalhos);
     }
 });
+
+
+
+
+
+function toggleMenu() {
+      const menu = document.getElementById('googleMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Fecha ao clicar fora do menu
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('googleMenu');
+      const btn = document.getElementById('profileBtn');
+      if (menu && btn && !menu.contains(event.target) && !btn.contains(event.target)) {
+        menu.classList.remove('active');
+      }
+    });

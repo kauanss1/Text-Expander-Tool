@@ -492,3 +492,83 @@ nav.main footer {
     color: #ffffff;
     padding: 10px;
 }
+
+
+
+
+
+
+
+header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+      position: relative;
+    }
+
+    /* Botão do Perfil (KS) */
+    .profile-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #a142f4;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+    }
+
+    .profile-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Pop-up do Menu */
+    .google-popup {
+      display: none;
+      position: absolute;
+      top: 65px;
+      right: 16px;
+      width: 380px;
+      background-color: #1e1f20;
+      border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .google-popup.active {
+      display: block;
+    }
+
+    /* Botão de Fechar (X) */
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #c4c7c5;
+      font-size: 18px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      background-color: #2d2e31;
+    }
+
+    /* Container para seu conteúdo personalizado */
+    .menu-content {
+      margin-top: 32px;
+      min-height: 150px;
+    }
