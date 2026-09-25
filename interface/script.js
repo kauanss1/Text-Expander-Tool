@@ -240,12 +240,28 @@ async function dados_user() {
         const sucesso = await window.pywebview.api.salvar_dados_user(nome, email, telefone);
 
         if (sucesso) {
+            await carregarDadosUsuario();
             fecharModal('configuracaoinicial');
         } else {
             alert("Erro ao salvar as informações.");
         }
     } catch (erro) {
         console.error("Erro ao salvar dados do usuário:", erro);
+    }
+}
+
+async function carregarDadosUsuario() {
+    try {
+        const dados = await window.pywebview.api.carregar_dados_user();
+        const nome = document.getElementById('perfil-nome');
+        const email = document.getElementById('perfil-email');
+        const telefone = document.getElementById('perfil-telefone');
+
+        if (nome) nome.textContent = dados.nome || 'Perfil';
+        if (email) email.textContent = dados.email || '';
+        if (telefone) telefone.textContent = dados.contato || '';
+    } catch (erro) {
+        console.error('Erro ao carregar dados do usuário:', erro);
     }
 }
 
@@ -267,6 +283,9 @@ window.addEventListener('DOMContentLoaded', () => {
 function toggleMenu() {
       const menu = document.getElementById('googleMenu');
       menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                carregarDadosUsuario();
+            }
     }
 
     // Fecha ao clicar fora do menu

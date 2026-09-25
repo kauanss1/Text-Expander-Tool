@@ -25,3 +25,6 @@ class InterfaceAPI:
 
         self.gestor.dados_user(nome, email, contato)
         return True
+
+    def carregar_dados_user(self):
+        return self.gestor.carregar_dados_user()

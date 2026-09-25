@@ -93,3 +93,10 @@ class Gestor_de_arquivos:
             print(f"Não criou pasta: {e}")
 
         return 1
+
+    def carregar_dados_user(self):
+        try:
+            with open(self.criador_pastas.caminhouser(), "r", encoding="utf-8") as arquivo:
+                return json.load(arquivo)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
