@@ -208,6 +208,8 @@ nav.main footer {
     justify-content: flex-end; 
     gap: 12px; 
     margin-top: 20px;
+    /* margin-bottom: 20px; */
+    padding-bottom: 20px;
 }
 
 .grupo-botoes button {
@@ -248,6 +250,20 @@ nav.main footer {
     color: #ffffff;
     box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
     transform: translateY(-1px);
+}
+
+.btn-deletar{
+    color: #022c22;
+    background-color: #10b981;
+    font-weight: 700;
+}
+
+.btn-deletar:hover{
+    background-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
+    transform: translateY(-1px);
+
 }
 
 /* ==========================================
@@ -504,10 +520,10 @@ header {
       justify-content: flex-end;
       padding: 16px;
       position: relative;
-    }
+}
 
     /* Botão do Perfil (KS) */
-    .profile-btn {
+.profile-btn {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -521,14 +537,14 @@ header {
       cursor: pointer;
       user-select: none;
       border: none;
-    }
+}
 
-    .profile-btn:hover {
+.profile-btn:hover {
       opacity: 0.9;
-    }
+}
 
-    /* Pop-up do Menu */
-    .google-popup {
+/* Pop-up do Menu */
+.google-popup {
       display: none;
       position: absolute;
       top: 65px;
@@ -539,14 +555,14 @@ header {
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       padding: 16px;
       z-index: 1000;
-    }
+}
 
-    .google-popup.active {
-      display: block;
-    }
+.google-popup.active {
+    display: block;
+}
 
-    /* Botão de Fechar (X) */
-    .close-btn {
+/* Botão de Fechar (X) */
+.close-btn {
       position: absolute;
       top: 16px;
       right: 16px;
@@ -561,14 +577,46 @@ header {
       display: flex;
       align-items: center;
       justify-content: center;
-    }
+}
 
-    .close-btn:hover {
+.close-btn:hover {
       background-color: #2d2e31;
-    }
+}
 
-    /* Container para seu conteúdo personalizado */
-    .menu-content {
-      margin-top: 32px;
-      min-height: 150px;
-    }
+/* Container para seu conteúdo personalizado */
+.menu-content {
+        font-size: medium;
+        margin-top: 32px;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 8px; 
+}
+
+.menu-content > div * {
+        display: inline;
+}
+
+
+
+
+
+
+
+.profile-btn {
+  width: 40px;          /* Largura do botão */
+  height: 40px;         /* Altura do botão */
+  border-radius: 50%;   /* Deixa arredondado */
+  border: none;
+  padding: 0;           /* Remove bordas internas */
+  overflow: hidden;     /* Garante o corte redondo na imagem */
+  cursor: pointer;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* Mantém a proporção da foto sem esticar */
+  display: block;
+}

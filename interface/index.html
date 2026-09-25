@@ -30,16 +30,27 @@
     <nav class="main" id="pagina_inicial" >
 
         <header>
-            <button class="profile-btn" id="profileBtn" onclick="toggleMenu()">KS</button>
+            <button class="profile-btn" id="profileBtn" onclick="toggleMenu()">
+                <img src="avatar-do-usuario.png" alt="Foto de Perfil" class="profile-img">
+            </button>
 
             <div class="google-popup" id="googleMenu">
-            <button class="close-btn" onclick="toggleMenu()">&#x2715;</button>
+                <button class="profile-btn" id="profileBtn" onclick="toggleMenu()">KS</button>
+                <button class="close-btn" onclick="toggleMenu()">&#x2715;</button>
     
-            <div class="menu-content">
-                <strong id="perfil-nome">Perfil</strong>
-                <span id="perfil-email"></span>
-                <span id="perfil-telefone"></span>
-            </div>
+                <div class="menu-content">
+                    <div>
+                        <ul>👤</ul>
+                        <strong id="perfil-nome"></strong>
+                    </div>
+                    <div>
+                        <span id="perfil-email"></span>
+                    </div>
+                    <div>
+                        <span id="perfil-telefone"></span>
+                    </div>
+                    <button  class="botoes_main" onclick="gerenciarVariaveis()">⚙️</button>
+                </div>
             </div>
             
         </header>
@@ -48,7 +59,14 @@
             <div class="bloco-laranja"></div>
         </main>
         <footer>
-            <button  class="botoes_main" onclick=" btn_abri()">novo atalho +</button>
+            <div class="grupo-botoes">
+                <button class="botoes_main" onclick="btn_abri()">Novo atalho ➕</button>
+                <button class="btn-deletar" onclick="deletarGatilho()">Deletar atalho 🗑️</button>
+                <button class="botoes_main" onclick="deletarGatilho()">Editar atalho ✏️</button>
+                <button class="botoes_main" onclick="deletarGatilho()">Nova pasta 📁</button>
+                <button class="botoes_main" onclick="deletarGatilho()">gerenciar variaveis ⚙️</button>
+
+            </div>
         </footer>
     </nav>
 
