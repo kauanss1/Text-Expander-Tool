@@ -261,6 +261,42 @@ async function deletarGatilho() {
     }
 }
 
+async function adicionarNovaPasta() {
+    const campoPasta = document.getElementById('campo-pasta');
+    const seletorPasta = document.getElementById('criador-de-pasta');
+    const nome = campoPasta?.value.trim();
+    const pastaPai = seletorPasta?.value;
+
+    if (!nome) {
+        alert("Digite um nome para a pasta.");
+        return;
+    }
+
+    if (!pastaPai) {
+        alert("Selecione a pasta onde a nova pasta será criada.");
+        return;
+    }
+
+    try {
+        const sucesso = await window.pywebview.api.salvarpasta(nome, pastaPai);
+        if (!sucesso) {
+            alert("Não foi possível criar a pasta. Verifique se o nome já existe nessa pasta.");
+            return;
+        }
+
+        campoPasta.value = '';
+        btn_fechar_pasta();
+        await carregarListaAtalhos();
+        await Promise.all([
+            atualizarSelectPastas('seletor-pasta'),
+            atualizarSelectPastas('criador-de-pasta')
+        ]);
+    } catch (erro) {
+        console.error("Erro ao criar a pasta:", erro);
+        alert("Erro ao comunicar com o servidor ao criar a pasta.");
+    }
+}
+
 async function dados_user() {
     const nome = document.getElementById('campo-nome')?.value.trim();
     const email = document.getElementById('campo-email')?.value.trim();

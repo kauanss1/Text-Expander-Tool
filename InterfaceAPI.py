@@ -24,6 +24,9 @@ class InterfaceAPI:
     def deletargatilho(self, gatilho, pasta_alvo="gatilhos"):
         return self.gestor.deletar_gatilho(gatilho, pasta_alvo)
 
+    def salvarpasta(self, nome, pasta_pai="gatilhos"):
+        return self.gestor.criar_pasta(nome, pasta_pai)
+
     def salvar_dados_user(self, nome, email, contato):
 
         self.gestor.dados_user(nome, email, contato)

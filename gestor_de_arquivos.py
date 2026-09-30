@@ -112,6 +112,47 @@ class Gestor_de_arquivos:
             print(f"Erro ao deletar o gatilho: {e}")
             return False
 
+    def criar_pasta(self, nome, pasta_pai="gatilhos"):
+        nome = nome.strip()
+        if not nome:
+            return False
+
+        caminho = self.criador_pastas.caminhogatilhos()
+        try:
+            with open(caminho, "r", encoding="utf-8") as arquivo:
+                dados_arvore = json.load(arquivo)
+
+            def buscar_pasta(no):
+                if no.get("nome") == pasta_pai:
+                    return no
+                for subpasta in no.get("pastas", []):
+                    resultado = buscar_pasta(subpasta)
+                    if resultado:
+                        return resultado
+                return None
+
+            pasta_destino = buscar_pasta(dados_arvore)
+            if pasta_destino is None:
+                return False
+
+            subpastas = pasta_destino.setdefault("pastas", [])
+            if any(subpasta.get("nome", "").casefold() == nome.casefold() for subpasta in subpastas):
+                return False
+
+            subpastas.append({
+                "nome": nome,
+                "atalhos": [],
+                "pastas": []
+            })
+
+            with open(caminho, "w", encoding="utf-8") as arquivo:
+                json.dump(dados_arvore, arquivo, ensure_ascii=False, indent=4)
+
+            return True
+        except Exception as e:
+            print(f"Erro ao criar a pasta: {e}")
+            return False
+
     def dados_user(self, nome, email, contato):
         dados_user = {
             "nome": nome,
