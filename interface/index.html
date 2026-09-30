@@ -63,7 +63,7 @@
                 <div class="grupo-botoes">
                     <button class="botoes_main" onclick="btn_abri()">Novo atalho ➕</button>
                     <button class="btn-deletar" onclick="deletarGatilho()">Deletar atalho 🗑️</button>
-                    <button class="botoes_main" onclick="nada()">Editar atalho ✏️</button>
+                    <button class="botoes_main" onclick="editaratalho('editar-atalho')">Editar atalho ✏️</button>
                     <button class="botoes_main" onclick="btn_adicionar_pasta()">Nova pasta 📁</button>
                     <button class="botoes_main" onclick="nada()">gerenciar variaveis ⚙️</button>
 
@@ -81,8 +81,21 @@
                     <input type="text" id="campo-gatilho" placeholder="EX:\help ">
                     <textarea name=" mensagem" rows=" 40" cols="100" placeholder=" texto do gatilho" id="texto-do-gatilho"></textarea>
                     <div class="grupo-botoes">
-                        <button type="button" class="btn-cancelar" onclick="btn_fechar()">Cancelar</button>
+                        <button type="button" class="btn-cancelar" onclick="btn_fechar('cadastro_atalhos')">Cancelar</button>
                         <button type="submit" class="btn-salvar"  onclick="adicionarNovoGatilho()">Salvar</button>
+                    </div>
+                </div>
+        </nav>
+        <nav class="novo-atalho" id="editar-atalho" style="display: none;">
+                <div class="grupo-input">
+                    <label for="seletor-pasta-edicao" style="color: #38bdf8; font-size: 19px;">Salvar na pasta:</label>
+                    <select id="seletor-pasta-edicao" class="campo-select">
+                    </select>
+                    <input type="text" id="campo-gatilho-edicao" placeholder="EX:\help ">
+                    <textarea name="mensagem-edicao" rows="40" cols="100" placeholder="Texto do gatilho" id="texto-do-gatilho-edicao"></textarea>
+                    <div class="grupo-botoes">
+                        <button type="button" class="btn-cancelar" onclick="btn_fechar('editar-atalho')">Cancelar</button>
+                        <button type="button" class="btn-salvar" onclick="salvarEdicaoGatilho()">Salvar</button>
                     </div>
                 </div>
         </nav>
@@ -97,7 +110,7 @@
                     </select>
                     <input type="text" id="campo-pasta" placeholder="EX:novapasta ">
                     <div class="grupo-botoes">
-                        <button type="button" class="btn-cancelar" onclick="btn_fechar_pasta()">Cancelar</button>
+                        <button type="button" class="btn-cancelar" onclick="btn_fechar('cadastro_pasta')">Cancelar</button>
                         <button type="submit" class="btn-salvar"  onclick="adicionarNovaPasta()">Salvar</button>
                     </div>
                 </div>

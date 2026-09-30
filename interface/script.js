@@ -21,6 +21,19 @@ function fecharModal(idModal) {
 }
 
 // Funções de atalho para os botões do HTML
+const editaratalho = async (idModal) => {
+    const itemSelecionado = document.querySelector('.item-atalho.ativo');
+    if (!itemSelecionado) {
+        alert("Selecione um atalho para editar.");
+        return;
+    }
+
+    await atualizarSelectPastas('seletor-pasta-edicao');
+    document.getElementById('campo-gatilho-edicao').value = itemSelecionado.dataset.gatilho;
+    document.getElementById('texto-do-gatilho-edicao').value = itemSelecionado.dataset.conteudo || '';
+    document.getElementById('seletor-pasta-edicao').value = itemSelecionado.dataset.pasta;
+    abrirModal(idModal);
+};
 const btn_abri = () => {
     abrirModal('cadastro_atalhos');
     atualizarSelectPastas('seletor-pasta');
@@ -29,8 +42,7 @@ const btn_adicionar_pasta = () => {
     abrirModal('cadastro_pasta');
     atualizarSelectPastas('criador-de-pasta');
 };
-const btn_fechar_pasta = () => fecharModal('cadastro_pasta');
-const btn_fechar = () => fecharModal('cadastro_atalhos');
+const btn_fechar = (elemento) => fecharModal(elemento);
 const confg_abri = () => abrirModal('configuracaoinicial');
 const confg_fechar = () => fecharModal('configuracaoinicial');
 
@@ -96,6 +108,7 @@ function renderizarEstrutura(pastaAtual, elementoPai) {
             item.textContent = atalho.gatilho;
             item.dataset.gatilho = atalho.gatilho;
             item.dataset.pasta = pastaAtual.nome;
+            item.dataset.conteudo = atalho.conteudo || '';
             item.onclick = () => exibirConteudo(atalho.gatilho, item);
 
             corpoPasta.appendChild(item);
@@ -258,6 +271,48 @@ async function deletarGatilho() {
     } catch (erro) {
         console.error("Erro ao deletar o atalho:", erro);
         alert("Erro ao comunicar com o servidor ao deletar o atalho.");
+    }
+}
+
+async function salvarEdicaoGatilho() {
+    const itemSelecionado = document.querySelector('.item-atalho.ativo');
+    const inputGatilho = document.getElementById('campo-gatilho-edicao');
+    const inputTexto = document.getElementById('texto-do-gatilho-edicao');
+    const seletorPasta = document.getElementById('seletor-pasta-edicao');
+
+    if (!itemSelecionado || !inputGatilho || !inputTexto || !seletorPasta) return;
+
+    const gatilhoNovo = inputGatilho.value.trim();
+    const texto = inputTexto.value.trim();
+    const pastaDestino = seletorPasta.value;
+    if (!gatilhoNovo || !texto || !pastaDestino) {
+        alert("Preencha o gatilho, o texto e selecione uma pasta.");
+        return;
+    }
+
+    try {
+        const sucesso = await window.pywebview.api.editargatilho(
+            itemSelecionado.dataset.gatilho,
+            gatilhoNovo,
+            texto,
+            itemSelecionado.dataset.pasta,
+            pastaDestino
+        );
+        if (!sucesso) {
+            alert("Não foi possível editar o atalho. Verifique se o gatilho já existe na pasta selecionada.");
+            return;
+        }
+
+        btn_fechar('editar-atalho');
+        await carregarListaAtalhos();
+        const itemAtualizado = Array.from(document.querySelectorAll('.item-atalho')).find(item =>
+            item.dataset.gatilho === (gatilhoNovo.startsWith('\\') ? gatilhoNovo : `\\${gatilhoNovo}`) &&
+            item.dataset.pasta === pastaDestino
+        );
+        if (itemAtualizado) itemAtualizado.click();
+    } catch (erro) {
+        console.error("Erro ao editar o atalho:", erro);
+        alert("Erro ao comunicar com o servidor ao editar o atalho.");
     }
 }
 

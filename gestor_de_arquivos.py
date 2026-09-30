@@ -112,6 +112,62 @@ class Gestor_de_arquivos:
             print(f"Erro ao deletar o gatilho: {e}")
             return False
 
+    def editar_gatilho(self, gatilho_antigo, gatilho_novo, texto, pasta_origem, pasta_destino):
+        gatilho_novo = gatilho_novo.strip()
+        if not gatilho_novo or not texto.strip():
+            return False
+        if not gatilho_novo.startswith("\\"):
+            gatilho_novo = "\\" + gatilho_novo
+
+        caminho = self.criador_pastas.caminhogatilhos()
+        try:
+            with open(caminho, "r", encoding="utf-8") as arquivo:
+                dados_arvore = json.load(arquivo)
+
+            def buscar_pasta(no, nome):
+                if no.get("nome") == nome:
+                    return no
+                for subpasta in no.get("pastas", []):
+                    resultado = buscar_pasta(subpasta, nome)
+                    if resultado:
+                        return resultado
+                return None
+
+            origem = buscar_pasta(dados_arvore, pasta_origem)
+            destino = buscar_pasta(dados_arvore, pasta_destino)
+            if origem is None or destino is None:
+                return False
+
+            atalhos_origem = origem.get("atalhos", [])
+            indice = next(
+                (i for i, atalho in enumerate(atalhos_origem) if atalho.get("gatilho") == gatilho_antigo),
+                None
+            )
+            if indice is None:
+                return False
+
+            if any(
+                atalho.get("gatilho") == gatilho_novo
+                for i, atalho in enumerate(destino.get("atalhos", []))
+                if destino is not origem or i != indice
+            ):
+                return False
+
+            atalho_editado = {"gatilho": gatilho_novo, "conteudo": texto.strip()}
+            if origem is destino:
+                origem["atalhos"][indice] = atalho_editado
+            else:
+                del atalhos_origem[indice]
+                destino.setdefault("atalhos", []).append(atalho_editado)
+
+            with open(caminho, "w", encoding="utf-8") as arquivo:
+                json.dump(dados_arvore, arquivo, ensure_ascii=False, indent=4)
+
+            return True
+        except Exception as e:
+            print(f"Erro ao editar o gatilho: {e}")
+            return False
+
     def criar_pasta(self, nome, pasta_pai="gatilhos"):
         nome = nome.strip()
         if not nome:
