@@ -89,6 +89,8 @@ function renderizarEstrutura(pastaAtual, elementoPai) {
             const item = document.createElement('div');
             item.className = 'item-atalho';
             item.textContent = atalho.gatilho;
+            item.dataset.gatilho = atalho.gatilho;
+            item.dataset.pasta = pastaAtual.nome;
             item.onclick = () => exibirConteudo(atalho.gatilho, item);
 
             corpoPasta.appendChild(item);
@@ -223,6 +225,33 @@ async function adicionarNovoGatilho() {
         }
     } catch (erro) {
         console.error("Erro ao salvar o gatilho:", erro);
+    }
+}
+
+async function deletarGatilho() {
+    const itemSelecionado = document.querySelector('.item-atalho.ativo');
+    if (!itemSelecionado) {
+        alert("Selecione um atalho para deletar.");
+        return;
+    }
+
+    const gatilho = itemSelecionado.dataset.gatilho;
+    const pasta = itemSelecionado.dataset.pasta;
+    if (!confirm(`Deseja realmente deletar o atalho ${gatilho}?`)) return;
+
+    try {
+        const sucesso = await window.pywebview.api.deletargatilho(gatilho, pasta);
+        if (!sucesso) {
+            alert("Não foi possível deletar o atalho.");
+            return;
+        }
+
+        const blocoCaderno = document.querySelector('.bloco-laranja');
+        if (blocoCaderno) blocoCaderno.innerText = '';
+        await carregarListaAtalhos();
+    } catch (erro) {
+        console.error("Erro ao deletar o atalho:", erro);
+        alert("Erro ao comunicar com o servidor ao deletar o atalho.");
     }
 }
 

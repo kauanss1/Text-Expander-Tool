@@ -21,6 +21,9 @@ class InterfaceAPI:
         # Repassa os 3 parâmetros para o gestor
         return self.gestor.salvargatilho_novo(gatilho, texto, pasta_alvo)
 
+    def deletargatilho(self, gatilho, pasta_alvo="gatilhos"):
+        return self.gestor.deletar_gatilho(gatilho, pasta_alvo)
+
     def salvar_dados_user(self, nome, email, contato):
 
         self.gestor.dados_user(nome, email, contato)
