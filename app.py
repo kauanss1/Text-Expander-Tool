@@ -10,6 +10,14 @@ from gestor_interface import gestorinterface
 from gestor_de_arquivos import Gestor_de_arquivos
 from variaveis import variaveis_manege
 from InterfaceAPI import InterfaceAPI
+import sys
+import ctypes
+from PIL import Image
+
+
+if sys.platform == 'win32':
+    meu_app_id = 'minhaempresa.meuapp.gestoratalhos.1.0' # Qualquer string única
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(meu_app_id)
 
 
 
@@ -37,6 +45,8 @@ def start_bandeja():
 
 
 if __name__ == '__main__':
+
+    
 
     # criacao de todos os obijetos 
 
@@ -74,7 +84,7 @@ if __name__ == '__main__':
         if i == 1:
             InterfaceAPI_GLB.chamar_js("confg_abri")
 
-    webview.start(inicializar_sistema,gui='edgechromium')
+    webview.start(inicializar_sistema,gui='edgechromium', icon='imagems\escrevendo.ico',)
 
  
 

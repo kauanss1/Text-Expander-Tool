@@ -10,7 +10,7 @@ class bandeja:
 
 
     def criar_icon(self):
-        caminho = "icon.png"
+        caminho = "imagems\\mensagens-de-texto.png"
 
         if os.path.exists(caminho):
             imagem = Image.open(caminho)
