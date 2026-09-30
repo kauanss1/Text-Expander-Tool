@@ -1,8 +1,9 @@
 import json
 
 class InterfaceAPI:
-    def __init__(self, gestor_de_arquivos_glb):
+    def __init__(self, gestor_de_arquivos_glb, gerencia_variaveis=None):
         self.gestor = gestor_de_arquivos_glb
+        self.gerencia_variaveis = gerencia_variaveis
         self._janela = None
 
     def registrar_janela(self, janela_webview):
@@ -43,3 +44,8 @@ class InterfaceAPI:
 
     def carregar_dados_user(self):
         return self.gestor.carregar_dados_user()
+
+    def carregar_variaveis(self):
+        if self.gerencia_variaveis is None:
+            return {}
+        return self.gerencia_variaveis.obter_variaveis()

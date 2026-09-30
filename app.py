@@ -53,7 +53,7 @@ if __name__ == '__main__':
     criador_pastasglb = criador_pastas()
     Gestor_de_arquivos_glb = Gestor_de_arquivos(criador_pastasglb)
     gerencia_variaveisglb = variaveis_manege(criador_pastasglb)
-    InterfaceAPI_GLB = InterfaceAPI(Gestor_de_arquivos_glb)
+    InterfaceAPI_GLB = InterfaceAPI(Gestor_de_arquivos_glb, gerencia_variaveisglb)
     controlador_inteface = gestorinterface(InterfaceAPI_GLB)
     # ===========================================================
     
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         if i == 1:
             InterfaceAPI_GLB.chamar_js("confg_abri")
 
-    webview.start(inicializar_sistema,gui='edgechromium', icon='imagems\escrevendo.ico',)
+    webview.start(inicializar_sistema,gui='edgechromium', icon='imagems\\escrevendo.ico',)
 
  
 

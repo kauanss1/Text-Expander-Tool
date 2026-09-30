@@ -396,6 +396,37 @@ async function carregarDadosUsuario() {
     }
 }
 
+async function gerenciarVariaveis() {
+    const lista = document.getElementById('lista-variaveis');
+    abrirModal('gerenciarvariaveis');
+    if (!lista) return;
+
+    lista.textContent = 'Carregando variáveis...';
+    try {
+        const variaveis = await window.pywebview.api.carregar_variaveis();
+        lista.innerHTML = '';
+
+        Object.entries(variaveis || {}).forEach(([nome, valor]) => {
+            const linha = document.createElement('div');
+            linha.className = 'variavel-item';
+
+            const chave = document.createElement('code');
+            chave.className = 'variavel-chave';
+            chave.textContent = `{${nome}}`;
+
+            const conteudo = document.createElement('span');
+            conteudo.className = 'variavel-valor';
+            conteudo.textContent = valor === '' ? 'Não configurado' : String(valor);
+
+            linha.append(chave, conteudo);
+            lista.appendChild(linha);
+        });
+    } catch (erro) {
+        console.error('Erro ao carregar variáveis:', erro);
+        lista.textContent = 'Não foi possível carregar as variáveis.';
+    }
+}
+
 
 function obterIniciais(nome) {
     if (!nome) return '';
