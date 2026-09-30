@@ -286,12 +286,43 @@ async function carregarDadosUsuario() {
         const email = document.getElementById('perfil-email');
         const telefone = document.getElementById('perfil-telefone');
 
+        const sigla = obterIniciais(dados.nome);
+        const avatarSigla = document.getElementById('perfil-sigla');
         if (nome) nome.textContent = dados.nome || 'Perfil';
         if (email) email.textContent = dados.email || '';
         if (telefone) telefone.textContent = dados.contato || '';
+        if (avatarSigla) {
+            avatarSigla.textContent = sigla.toUpperCase(); 
+        }
     } catch (erro) {
         console.error('Erro ao carregar dados do usuário:', erro);
     }
+}
+
+
+function obterIniciais(nome) {
+    if (!nome) return '';
+    
+    // Remove espaços extras nas pontas e divide por espaços
+    const partes = nome.trim().split(/\s+/);
+    
+    // Se o nome tiver 2 ou mais palavras (ex: "Kauan Silva")
+    if (partes.length > 1) {
+        const primeiraPalavra = partes[0];
+        const ultimaPalavra = partes[partes.length - 1];
+        
+        const primeiraLetra = primeiraPalavra[0];
+        const ultimaLetra = ultimaPalavra[0]; // Pega a 1ª letra do SOBRENOME ("s" de Silva)
+        
+        return (primeiraLetra + ultimaLetra).toLowerCase();
+    } 
+    
+    // Se for apenas 1 palavra (ex: "Kauan")
+    const palavraUnica = partes[0];
+    const primeiraLetra = palavraUnica[0];
+    const ultimaLetra = palavraUnica[palavraUnica.length - 1]; // Pega a ÚLTIMA letra do NOME ("n" de Kauan)
+    
+    return (primeiraLetra + ultimaLetra).toLowerCase();
 }
 
 // ==========================================
