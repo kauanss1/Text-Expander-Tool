@@ -470,7 +470,7 @@ nav.main footer {
 
 
 /* Caixa do Select */
-#seletor-pasta {
+.campo-select {
     width: 100%;
     padding: 10px 14px;
     margin-bottom: 12px;
@@ -497,13 +497,13 @@ nav.main footer {
 }
 
 /* Quando clica no select (Foco) */
-#seletor-pasta:focus {
+.campo-select:focus {
     border-color: #a855f7;
     box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.25);
 }
 
 /* Opções dentro do dropdown */
-#seletor-pasta option {
+.campo-select option {
     background-color: #1a1d26;
     color: #ffffff;
     padding: 10px;

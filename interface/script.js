@@ -23,8 +23,13 @@ function fecharModal(idModal) {
 // Funções de atalho para os botões do HTML
 const btn_abri = () => {
     abrirModal('cadastro_atalhos');
-    atualizarSelectPastas();
+    atualizarSelectPastas('seletor-pasta');
 };
+const btn_adicionar_pasta = () => {
+    abrirModal('cadastro_pasta');
+    atualizarSelectPastas('criador-de-pasta');
+};
+const btn_fechar_pasta = () => fecharModal('cadastro_pasta');
 const btn_fechar = () => fecharModal('cadastro_atalhos');
 const confg_abri = () => abrirModal('configuracaoinicial');
 const confg_fechar = () => fecharModal('configuracaoinicial');
@@ -146,8 +151,8 @@ function carregarOpcoesPastas(noPasta, selectElement, nivel = 0) {
 }
 
 
-async function atualizarSelectPastas() {
-    const select = document.getElementById('seletor-pasta');
+async function atualizarSelectPastas(elemento) {
+    const select = document.getElementById(elemento);
     
     // 1. Verifica se a tag <select id="seletor-pasta"> existe no HTML
     if (!select) {
@@ -174,6 +179,7 @@ async function atualizarSelectPastas() {
         console.error("❌ ERRO ao comunicar com o Python:", erro);
     }
 }
+
 
 function carregarOpcoesPastas(noPasta, selectElement, nivel = 0) {
     if (!noPasta || !noPasta.nome) return;
