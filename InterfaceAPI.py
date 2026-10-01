@@ -49,3 +49,8 @@ class InterfaceAPI:
         if self.gerencia_variaveis is None:
             return {}
         return self.gerencia_variaveis.obter_variaveis()
+
+    def salvar_variavel(self, nome, valor):
+        if self.gerencia_variaveis is None:
+            return False
+        return self.gerencia_variaveis.salvar_variavel(nome, valor)

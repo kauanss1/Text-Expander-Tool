@@ -47,6 +47,34 @@ class variaveis_manege:
         self.VARIAVEIS_PADRAO.setdefault("contato", telefone)
         return self.VARIAVEIS_PADRAO.copy()
 
+    def salvar_variavel(self, nome, valor):
+        nome = nome.strip().casefold()
+        if not re.fullmatch(r"[a-z_][a-z0-9_]*", nome):
+            return False
+
+        reservadas = {"data", "hora", "ctrl", "telefone", "contato", "nome", "email"}
+        if nome in reservadas:
+            return False
+
+        caminho_user = self.gestGestor_de_arquivos.caminhouser()
+        try:
+            if os.path.exists(caminho_user):
+                with open(caminho_user, "r", encoding="utf-8") as arquivo:
+                    dados = json.load(arquivo)
+            else:
+                dados = {}
+
+            if not isinstance(dados, dict) or nome in {chave.casefold() for chave in dados}:
+                return False
+
+            dados[nome] = valor
+            with open(caminho_user, "w", encoding="utf-8") as arquivo:
+                json.dump(dados, arquivo, ensure_ascii=False, indent=4)
+            return True
+        except (OSError, json.JSONDecodeError) as erro:
+            print(f"[Variaveis] Erro ao salvar variável: {erro}")
+            return False
+
     def formatar_txt(self, gatilho):
         variaveis = self.obter_variaveis()
 

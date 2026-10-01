@@ -122,7 +122,18 @@
                     </div>
                 </div>
         </nav>
-
+        
+        <nav class="novo-atalho" id="cadastro_variavel" style="display: none;">
+                <div class="grupo-input">
+                    <label for="campo-variavel" style="color: #38bdf8; font-size: 19px;">adicionar variável</label>
+                    <input type="text" id="campo-variavel" placeholder="EX:nova variavel ">
+                    <textarea name="mensagem-edicao" rows="40" cols="100" placeholder="conteudo da variável" id="texto-da-variavel"></textarea>
+                    <div class="grupo-botoes">
+                        <button type="button" class="btn-cancelar" onclick="cadastravariavel('fechar')">Cancelar</button>
+                        <button type="submit" class="btn-salvar"  onclick="adicionarNovaVariavel()">Salvar</button>
+                    </div>
+                </div>
+        </nav>
 
 
         <nav class="novo-atalho" id="gerenciarvariaveis" style="display: none;">
@@ -133,7 +144,7 @@
                     <div class="grupo-botoes">
                         <button type="button" class="btn-cancelar" onclick="btn_fechar('gerenciarvariaveis')">Fechar</button>
                         <button class="botoes_main" onclick="">Editar variavel ✏️</button>
-                        <button class="botoes_main" onclick="">Nova variavel ➕</button>
+                        <button class="botoes_main" onclick="cadastravariavel('abri')">Nova variavel ➕</button>
                     </div>
                 </div>
         </nav>

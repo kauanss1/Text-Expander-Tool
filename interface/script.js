@@ -21,6 +21,17 @@ function fecharModal(idModal) {
 }
 
 // Funções de atalho para os botões do HTML
+
+const cadastravariavel = (valora) => {
+
+    if (valora == 'abri') {
+    btn_fechar('gerenciarvariaveis');
+    abrirModal('cadastro_variavel');
+    } else if (valora == 'fechar') {
+    btn_fechar('cadastro_variavel');
+    abrirModal('gerenciarvariaveis');
+    }
+};
 const editaratalho = async (idModal) => {
     const itemSelecionado = document.querySelector('.item-atalho.ativo');
     if (!itemSelecionado) {
@@ -431,6 +442,44 @@ async function gerenciarVariaveis() {
     } catch (erro) {
         console.error('Erro ao carregar variáveis:', erro);
         lista.textContent = 'Não foi possível carregar as variáveis.';
+    }
+}
+
+async function adicionarNovaVariavel() {
+    const campoNome = document.getElementById('campo-variavel');
+    const campoValor = document.getElementById('texto-da-variavel');
+    const nome = campoNome.value.trim();
+    const valor = campoValor.value;
+
+    if (!nome || !valor.trim()) {
+        alert('Preencha o nome e o conteúdo da variável.');
+        return;
+    }
+
+    try {
+        const variaveis = await window.pywebview.api.carregar_variaveis();
+        const nomeNormalizado = nome.toLowerCase();
+        const jaExiste = Object.keys(variaveis || {}).some(
+            nomeExistente => nomeExistente.toLowerCase() === nomeNormalizado
+        );
+        if (jaExiste) {
+            alert('Já existe uma variável com esse nome.');
+            return;
+        }
+
+        const sucesso = await window.pywebview.api.salvar_variavel(nome, valor);
+        if (!sucesso) {
+            alert('Nome inválido ou reservado.');
+            return;
+        }
+
+        campoNome.value = '';
+        campoValor.value = '';
+        fecharModal('cadastro_variavel');
+        await gerenciarVariaveis();
+    } catch (erro) {
+        console.error('Erro ao salvar variável:', erro);
+        alert('Não foi possível salvar a variável.');
     }
 }
 
