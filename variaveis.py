@@ -75,6 +75,43 @@ class variaveis_manege:
             print(f"[Variaveis] Erro ao salvar variável: {erro}")
             return False
 
+    def editar_variavel(self, nome_antigo, nome_novo, valor):
+        nome_antigo = nome_antigo.strip().casefold()
+        nome_novo = nome_novo.strip().casefold()
+        if not re.fullmatch(r"[a-z_][a-z0-9_]*", nome_novo):
+            return False
+
+        reservadas = {"data", "hora", "ctrl", "telefone", "contato", "nome", "email"}
+        if nome_antigo in reservadas or nome_novo in reservadas:
+            return False
+
+        caminho_user = self.gestGestor_de_arquivos.caminhouser()
+        try:
+            with open(caminho_user, "r", encoding="utf-8") as arquivo:
+                dados = json.load(arquivo)
+            if not isinstance(dados, dict):
+                return False
+
+            chave_antiga = next(
+                (chave for chave in dados if chave.casefold() == nome_antigo), None
+            )
+            if chave_antiga is None:
+                return False
+
+            if nome_novo in {
+                chave.casefold() for chave in dados if chave != chave_antiga
+            }:
+                return False
+
+            del dados[chave_antiga]
+            dados[nome_novo] = valor
+            with open(caminho_user, "w", encoding="utf-8") as arquivo:
+                json.dump(dados, arquivo, ensure_ascii=False, indent=4)
+            return True
+        except (OSError, json.JSONDecodeError) as erro:
+            print(f"[Variaveis] Erro ao editar variável: {erro}")
+            return False
+
     def formatar_txt(self, gatilho):
         variaveis = self.obter_variaveis()
 

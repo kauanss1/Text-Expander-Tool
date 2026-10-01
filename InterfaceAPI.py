@@ -54,3 +54,8 @@ class InterfaceAPI:
         if self.gerencia_variaveis is None:
             return False
         return self.gerencia_variaveis.salvar_variavel(nome, valor)
+
+    def editar_variavel(self, nome_antigo, nome_novo, valor):
+        if self.gerencia_variaveis is None:
+            return False
+        return self.gerencia_variaveis.editar_variavel(nome_antigo, nome_novo, valor)

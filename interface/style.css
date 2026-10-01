@@ -183,6 +183,27 @@ nav.main footer {
     border-radius: 6px;
 }
 
+.variavel-grupo + .variavel-grupo {
+    border-top: 1px solid #475569;
+}
+
+.variavel-grupo-titulo {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 9px 12px;
+    background-color: #0f172a;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.variaveis-vazio {
+    padding: 10px 12px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
 .variavel-item {
     display: grid;
     grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1.2fr);
@@ -193,6 +214,19 @@ nav.main footer {
 
 .variavel-item:last-child {
     border-bottom: 0;
+}
+
+.variavel-item.selecionavel {
+    cursor: pointer;
+}
+
+.variavel-item.selecionavel:hover,
+.variavel-item.selecionavel.selecionada {
+    background-color: #1e293b;
+}
+
+.variavel-item.selecionavel.selecionada {
+    box-shadow: inset 3px 0 #38bdf8;
 }
 
 .variavel-chave {

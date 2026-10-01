@@ -2,6 +2,8 @@
 // ESTADO GLOBAL
 // ==========================================
 let todosOsAtalhos = {};
+let variavelSelecionada = null;
+const nomesVariaveisPadrao = new Set(['data', 'hora', 'ctrl', 'telefone', 'contato', 'nome', 'email']);
 
 // ==========================================
 // GERENCIAMENTO DE MODAIS
@@ -22,14 +24,24 @@ function fecharModal(idModal) {
 
 // Funções de atalho para os botões do HTML
 
-const cadastravariavel = (valora) => {
+const cadastravariavel = (a ,valora) => {
 
-    if (valora == 'abri') {
-    btn_fechar('gerenciarvariaveis');
-    abrirModal('cadastro_variavel');
-    } else if (valora == 'fechar') {
-    btn_fechar('cadastro_variavel');
-    abrirModal('gerenciarvariaveis');
+    if (a == 'cadastravariavel') {
+        if (valora == 'abri') {
+        btn_fechar('gerenciarvariaveis');
+        abrirModal('cadastro_variavel');
+        } else if (valora == 'fechar') {
+        btn_fechar('cadastro_variavel');
+        abrirModal('gerenciarvariaveis');
+        }
+    }else if (a == 'editarvariaveis') {
+        if (valora == 'abri') {
+        btn_fechar('gerenciarvariaveis');
+        abrirModal('editar_variavel');
+        } else if (valora == 'fechar') {
+        btn_fechar('editar_variavel');
+        abrirModal('gerenciarvariaveis');
+        }
     }
 };
 const editaratalho = async (idModal) => {
@@ -416,32 +428,137 @@ async function gerenciarVariaveis() {
     try {
         const variaveis = await window.pywebview.api.carregar_variaveis();
         lista.innerHTML = '';
+        variavelSelecionada = null;
 
-        Object.entries(variaveis || {}).forEach(([nome, valor]) => {
-            const linha = document.createElement('div');
-            linha.className = 'variavel-item';
+        const entradas = Object.entries(variaveis || {});
+        const entradasPadrao = entradas.filter(([nome]) => nomesVariaveisPadrao.has(nome.toLowerCase()));
+        const entradasCriadas = entradas.filter(([nome]) => !nomesVariaveisPadrao.has(nome.toLowerCase()));
 
-            const chave = document.createElement('code');
-            chave.className = 'variavel-chave';
-            chave.textContent = `{${nome}}`;
+        const renderizarGrupo = (titulo, itens, editavel = false) => {
+            const grupo = document.createElement('section');
+            grupo.className = 'variavel-grupo';
 
-            const conteudo = document.createElement('span');
-            conteudo.className = 'variavel-valor';
-            if (nome === 'ctrl') {
-                conteudo.textContent = 'o que estiver no ctrl + c';
-            }else  if (nome === 'data') {
-                conteudo.textContent = 'data atual';
-            } else if (nome === 'hora') {
-                conteudo.textContent = 'hora atual';
-            }else
-            conteudo.textContent = valor === '' ? 'Não configurado' : String(valor);
+            const cabecalho = document.createElement('h3');
+            cabecalho.className = 'variavel-grupo-titulo';
+            cabecalho.textContent = titulo;
+            grupo.appendChild(cabecalho);
 
-            linha.append(chave, conteudo);
-            lista.appendChild(linha);
-        });
+            if (itens.length === 0 && editavel) {
+                const vazio = document.createElement('p');
+                vazio.className = 'variaveis-vazio';
+                vazio.textContent = 'Nenhuma variável criada.';
+                grupo.appendChild(vazio);
+            }
+
+            itens.forEach(([nome, valor]) => {
+                const linha = document.createElement('div');
+                linha.className = 'variavel-item';
+
+                const chave = document.createElement('code');
+                chave.className = 'variavel-chave';
+                chave.textContent = `{${nome}}`;
+
+                const conteudo = document.createElement('span');
+                conteudo.className = 'variavel-valor';
+                const nomeNormalizado = nome.toLowerCase();
+                if (nomeNormalizado === 'ctrl') {
+                    conteudo.textContent = 'o que estiver no ctrl + c';
+                } else if (nomeNormalizado === 'data') {
+                    conteudo.textContent = 'data atual';
+                } else if (nomeNormalizado === 'hora') {
+                    conteudo.textContent = 'hora atual';
+                } else {
+                    conteudo.textContent = valor === '' ? 'Não configurado' : String(valor);
+                }
+
+                linha.append(chave, conteudo);
+                grupo.appendChild(linha);
+
+                if (editavel) {
+                    linha.classList.add('selecionavel');
+                    linha.tabIndex = 0;
+                    linha.setAttribute('role', 'button');
+                    linha.addEventListener('click', () => selecionarVariavel(linha, nome, String(valor ?? '')));
+                    linha.addEventListener('keydown', evento => {
+                        if (evento.key === 'Enter' || evento.key === ' ') {
+                            evento.preventDefault();
+                            selecionarVariavel(linha, nome, String(valor ?? ''));
+                        }
+                    });
+                }
+            });
+
+            lista.appendChild(grupo);
+        };
+
+        renderizarGrupo('Variáveis padrão', entradasPadrao);
+        renderizarGrupo('Variáveis criadas', entradasCriadas, true);
     } catch (erro) {
         console.error('Erro ao carregar variáveis:', erro);
         lista.textContent = 'Não foi possível carregar as variáveis.';
+    }
+}
+
+function selecionarVariavel(linha, nome, valor) {
+    document.querySelectorAll('.variavel-item.selecionada').forEach(item => {
+        item.classList.remove('selecionada');
+    });
+    linha.classList.add('selecionada');
+    variavelSelecionada = { nome, valor };
+}
+
+function editarVariavel() {
+    if (!variavelSelecionada) {
+        alert('Selecione uma variável para editar.');
+        return;
+    }
+
+    document.getElementById('editar-variavel').value = variavelSelecionada.nome;
+    document.getElementById('editar-texto-da-variavel').value = variavelSelecionada.valor;
+    cadastravariavel('editarvariaveis', 'abri');
+}
+
+async function salvarEdicaoVariavel() {
+    if (!variavelSelecionada) {
+        alert('Selecione uma variável para editar.');
+        return;
+    }
+
+    const nome = document.getElementById('editar-variavel').value.trim();
+    const valor = document.getElementById('editar-texto-da-variavel').value;
+    if (!nome || !valor.trim()) {
+        alert('Preencha o nome e o conteúdo da variável.');
+        return;
+    }
+
+    try {
+        const variaveis = await window.pywebview.api.carregar_variaveis();
+        const nomeNormalizado = nome.toLowerCase();
+        const jaExiste = Object.keys(variaveis || {}).some(nomeExistente =>
+            nomeExistente.toLowerCase() === nomeNormalizado &&
+            nomeExistente.toLowerCase() !== variavelSelecionada.nome.toLowerCase()
+        );
+        if (jaExiste) {
+            alert('Já existe uma variável com esse nome.');
+            return;
+        }
+
+        const sucesso = await window.pywebview.api.editar_variavel(
+            variavelSelecionada.nome,
+            nome,
+            valor
+        );
+        if (!sucesso) {
+            alert('Não foi possível editar a variável. Verifique o nome informado.');
+            return;
+        }
+
+        variavelSelecionada = null;
+        fecharModal('editar_variavel');
+        await gerenciarVariaveis();
+    } catch (erro) {
+        console.error('Erro ao editar variável:', erro);
+        alert('Não foi possível editar a variável.');
     }
 }
 
