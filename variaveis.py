@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import json
 import re
+import pyperclip
 
 class variaveis_manege:
     def __init__(self, Gestor_de_arquivos_glb):
@@ -39,6 +40,7 @@ class variaveis_manege:
         agora = datetime.now()
         self.VARIAVEIS_PADRAO["data"] = agora.strftime("%d/%m/%y")
         self.VARIAVEIS_PADRAO["hora"] = agora.strftime("%H:%M")
+        self.VARIAVEIS_PADRAO["ctrl"] = pyperclip.paste()
 
         telefone = self.VARIAVEIS_PADRAO.get("telefone") or self.VARIAVEIS_PADRAO.get("contato", "")
         self.VARIAVEIS_PADRAO["telefone"] = telefone

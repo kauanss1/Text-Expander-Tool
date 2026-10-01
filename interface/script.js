@@ -416,6 +416,13 @@ async function gerenciarVariaveis() {
 
             const conteudo = document.createElement('span');
             conteudo.className = 'variavel-valor';
+            if (nome === 'ctrl') {
+                conteudo.textContent = 'o que estiver no ctrl + c';
+            }else  if (nome === 'data') {
+                conteudo.textContent = 'data atual';
+            } else if (nome === 'hora') {
+                conteudo.textContent = 'hora atual';
+            }else
             conteudo.textContent = valor === '' ? 'Não configurado' : String(valor);
 
             linha.append(chave, conteudo);
