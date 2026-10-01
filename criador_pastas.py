@@ -22,7 +22,7 @@ class criador_pastas:
                 "atalhos": [
                     {
                         "gatilho": "\\help",
-                        "conteudo": "Olá! Sou o suporte técnico. Como posso te ajudar hoje?"
+                        "conteudo": "aplicativo de atalhos de texto para Windows feito em Python, desenvolvido por Kauan Silva. Para mais informações, visite: https://github.com/kauanss1/Text-Expander-Tool"
                     }
                 ],
                 "pastas": []
