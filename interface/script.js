@@ -363,7 +363,7 @@ async function adicionarNovaPasta() {
         }
 
         campoPasta.value = '';
-        btn_fechar_pasta();
+        btn_fechar('cadastro_pasta');
         await carregarListaAtalhos();
         await Promise.all([
             atualizarSelectPastas('seletor-pasta'),

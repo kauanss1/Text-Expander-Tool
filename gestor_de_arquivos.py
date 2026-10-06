@@ -59,6 +59,7 @@ class Gestor_de_arquivos:
             for atalho in pasta_destino.get("atalhos", []):
                 if atalho["gatilho"] == gatilho:
                     atalho["conteudo"] = texto
+                    atalho
                     atualizado = True
                     break
 
