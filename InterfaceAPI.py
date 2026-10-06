@@ -18,20 +18,21 @@ class InterfaceAPI:
         gatilhos = self.gestor.carregar_gatilhos()
         return gatilhos if gatilhos else {}
 
-    def salvargatilho(self, gatilho, texto, pasta_alvo="gatilhos"):
+    def salvargatilho(self,tipo, gatilho, texto, pasta_alvo="gatilhos"):
         # Repassa os 3 parâmetros para o gestor
-        return self.gestor.salvargatilho_novo(gatilho, texto, pasta_alvo)
+        return self.gestor.salvargatilho_novo(tipo,gatilho, texto, pasta_alvo)
 
     def deletargatilho(self, gatilho, pasta_alvo="gatilhos"):
         return self.gestor.deletar_gatilho(gatilho, pasta_alvo)
 
-    def editargatilho(self, gatilho_antigo, gatilho_novo, texto, pasta_origem, pasta_destino):
+    def editargatilho(self, gatilho_antigo, gatilho_novo, texto, pasta_origem, pasta_destino, tipo):
         return self.gestor.editar_gatilho(
             gatilho_antigo,
             gatilho_novo,
             texto,
             pasta_origem,
-            pasta_destino
+            pasta_destino,
+            tipo
         )
 
     def salvarpasta(self, nome, pasta_pai="gatilhos"):

@@ -240,11 +240,13 @@ async function adicionarNovoGatilho() {
     const inputGatilho = document.getElementById('campo-gatilho');
     const inputTexto = document.getElementById('texto-do-gatilho');
     const seletorPasta = document.getElementById('seletor-pasta');
+    const seletorTipo = document.getElementById('seletor-tipo');
 
     if (!inputGatilho || !inputTexto) return;
 
     const gatilho = inputGatilho.value.trim();
     const texto = inputTexto.value.trim();
+    const tipo = seletorTipo.value.trim();  // Obtém o tipo selecionado
     // Pega a pasta selecionada (ou define "gatilhos" como fallback padrão)
     const pastaAlvo = seletorPasta ? seletorPasta.value : "gatilhos";
 
@@ -255,7 +257,7 @@ async function adicionarNovoGatilho() {
 
     try {
         // Envia os 3 argumentos: gatilho, texto e a pasta escolhida
-        const sucesso = await window.pywebview.api.salvargatilho(gatilho, texto, pastaAlvo);
+        const sucesso = await window.pywebview.api.salvargatilho(tipo,gatilho, texto, pastaAlvo);
 
         if (sucesso) {
             inputGatilho.value = '';
@@ -302,14 +304,16 @@ async function salvarEdicaoGatilho() {
     const inputGatilho = document.getElementById('campo-gatilho-edicao');
     const inputTexto = document.getElementById('texto-do-gatilho-edicao');
     const seletorPasta = document.getElementById('seletor-pasta-edicao');
+    const seletorTipo = document.getElementById('seletor-tipo-edicao');
 
-    if (!itemSelecionado || !inputGatilho || !inputTexto || !seletorPasta) return;
+    if (!itemSelecionado || !inputGatilho || !inputTexto || !seletorPasta || !seletorTipo) return;
 
     const gatilhoNovo = inputGatilho.value.trim();
     const texto = inputTexto.value.trim();
     const pastaDestino = seletorPasta.value;
-    if (!gatilhoNovo || !texto || !pastaDestino) {
-        alert("Preencha o gatilho, o texto e selecione uma pasta.");
+    const tipo = seletorTipo.value;
+    if (!gatilhoNovo || !texto || !pastaDestino || !tipo) {
+        alert("Preencha o gatilho, o texto, selecione uma pasta e um tipo.");
         return;
     }
 
@@ -319,7 +323,8 @@ async function salvarEdicaoGatilho() {
             gatilhoNovo,
             texto,
             itemSelecionado.dataset.pasta,
-            pastaDestino
+            pastaDestino,
+            tipo
         );
         if (!sucesso) {
             alert("Não foi possível editar o atalho. Verifique se o gatilho já existe na pasta selecionada.");

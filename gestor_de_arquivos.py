@@ -33,7 +33,7 @@ class Gestor_de_arquivos:
 
         return mapa
 
-    def salvargatilho_novo(self, gatilho, texto, pasta_alvo="gatilhos"):
+    def salvargatilho_novo(self, tipo, gatilho, texto, pasta_alvo="gatilhos"):
         gatilho = gatilho.strip()
         if not gatilho.startswith("\\"):
             gatilho = "\\" + gatilho
@@ -59,6 +59,7 @@ class Gestor_de_arquivos:
             for atalho in pasta_destino.get("atalhos", []):
                 if atalho["gatilho"] == gatilho:
                     atalho["conteudo"] = texto
+                    atalho["tipo"] =  tipo
                     atalho
                     atualizado = True
                     break
@@ -68,7 +69,8 @@ class Gestor_de_arquivos:
                     pasta_destino["atalhos"] = []
                 pasta_destino["atalhos"].append({
                     "gatilho": gatilho,
-                    "conteudo": texto
+                    "conteudo": texto,
+                    "tipo": tipo
                 })
 
             with open(caminho, "w", encoding="utf-8") as f:
@@ -113,7 +115,7 @@ class Gestor_de_arquivos:
             print(f"Erro ao deletar o gatilho: {e}")
             return False
 
-    def editar_gatilho(self, gatilho_antigo, gatilho_novo, texto, pasta_origem, pasta_destino):
+    def editar_gatilho(self, gatilho_antigo, gatilho_novo, texto, pasta_origem, pasta_destino, tipo):
         gatilho_novo = gatilho_novo.strip()
         if not gatilho_novo or not texto.strip():
             return False
@@ -154,7 +156,13 @@ class Gestor_de_arquivos:
             ):
                 return False
 
-            atalho_editado = {"gatilho": gatilho_novo, "conteudo": texto.strip()}
+            # Inclui o parâmetro 'tipo' na estrutura do atalho editado
+            atalho_editado = {
+                "gatilho": gatilho_novo,
+                "conteudo": texto.strip(),
+                "tipo": tipo
+            }
+
             if origem is destino:
                 origem["atalhos"][indice] = atalho_editado
             else:
